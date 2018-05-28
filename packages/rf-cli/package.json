@@ -1,0 +1,13 @@
+{
+  "name": "rf-cli",
+  "version": "0.0.1",
+  "bin": {
+    "rf": "./bin/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.15.1",
+    "prompts": "^0.1.8"
+  }
+}

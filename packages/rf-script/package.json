@@ -1,0 +1,8 @@
+{
+  "name": "rf-script",
+  "version": "0.0.1",
+  "bin": {
+    "rf-scripts": "./bin/rf-scripts.js"
+  },
+  "license": "MIT"
+}
