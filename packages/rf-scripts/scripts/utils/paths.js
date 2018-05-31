@@ -11,12 +11,11 @@ if (cs_index > -1 && cs_index + 1 <= process.argv.length) {
 
 //Allow custom overrides package location
 const projectDir = path.resolve(fs.realpathSync(process.cwd()));
-var config_overrides = projectDir + "/.rf.default";
+var config_overrides = projectDir + "/.rf";
 const co_index = process.argv.indexOf("--config-overrides");
 
 if (co_index > -1 && co_index + 1 <= process.argv.length) {
   config_overrides = path.resolve(process.argv[co_index + 1]);
-  console.log(config_overrides);
   process.argv.splice(co_index, 2);
 }
 

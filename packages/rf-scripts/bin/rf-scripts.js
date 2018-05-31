@@ -2,6 +2,8 @@
 
 "use strict";
 
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
 const spawn = require("cross-spawn");
 const args = process.argv.slice(2);
 
@@ -15,7 +17,8 @@ switch (script) {
     const result = spawn.sync(
       "node",
       nodeArgs
-        .concat(require.resolve("../scripts/" + script))
+        .concat(require.resolve("../scripts/overrides"))
+        .concat(script)
         .concat(args.slice(scriptIndex + 1)),
       { stdio: "inherit" }
     );
