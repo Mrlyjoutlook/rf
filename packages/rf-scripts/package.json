@@ -1,0 +1,15 @@
+{
+  "name": "rf-scripts",
+  "version": "0.0.1",
+  "bin": {
+    "rf-scripts": "./bin/rf-scripts.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cross-spawn": "^6.0.5",
+    "rewire": "^4.0.1"
+  },
+  "peerDependencies": {
+    "react-scripts": "^1.1.4"
+  }
+}

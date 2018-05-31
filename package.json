@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:Mrlyjoutlook/rf-cli.git",
   "author": "git_outlook <mr.lyj@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^6.0.1"
+  }
 }
