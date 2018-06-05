@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "scripts": {
+    "precommit": "w2 start"
+  },
+  "author": {
+    "name": "mrlyj",
+    "email": "mr.lyj@outlook.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mrlyjoutlook/rf-cli"
+  },
+  "keywords": [
+    "react",
+    "cli",
+    "create-react-app"
+  ],
+  "lint-staged": {
+    "*.js": []
+  },
+  "homepage": "https://github.com/Mrlyjoutlook/rf-cli/blob/master/README.md",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.3"
+  },
+  "license": "MIT"
+}

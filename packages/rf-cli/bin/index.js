@@ -27,12 +27,11 @@ program
 //   .option('-c, --config <path>', 'set config path. defaults to ./deploy.conf')
 //   .option('-T, --no-tests', 'ignore test hook')
 
-
 program
-    .command('new')
-    .description('构建项目工程')
-    .usage('<project name>')
-    .action(function (cmd) {
+  .command('new')
+  .description('构建项目工程')
+  .usage('<project name>')
+  .action(function (cmd) {
         console.log(chalk.green('peak: build project.'));
         /**
          * 判断是否存在文件
