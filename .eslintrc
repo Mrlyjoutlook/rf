@@ -8,8 +8,12 @@
     "es6": true
   },
   "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
   "rules": {
-    "prettier/prettier": "error",
-    "no-console": "off"
+    "no-console": "off",
+    "strict": ["error", "global"],
+    "curly": "warn"
   }
 }
