@@ -7,7 +7,6 @@
     "node": true,
     "es6": true
   },
-  "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 6
   },
