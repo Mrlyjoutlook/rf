@@ -11,6 +11,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "commander": "^2.15.1",
+    "download-git-repo": "^1.0.2",
     "ora": "^2.1.0",
     "prompts": "^0.1.8"
   }

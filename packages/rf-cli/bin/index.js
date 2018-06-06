@@ -15,7 +15,7 @@ function wrap(sp) {
 }
 
 function executable(subcmd) {
-  var file = path.join(__dirname, subcmd + ".js");
+  var file = path.join(__dirname, "../scripts/" + subcmd + ".js");
   if (fs.existsSync(file)) {
     return file;
   }
@@ -28,38 +28,33 @@ program.version(pg.version);
 
 program
   .command("new")
-  .description("构建项目工程")
+  .description("build project")
   .usage("<project name>")
   .action(function(cmd) {
-    console.log(chalk.green("peak: build project."));
-    /**
-     * 判断是否存在文件
-     * 是 -> 提示
-     * 否 -> 执行命令
-     */
+    console.log(chalk.green("rf: build project"));
     if (fs.existsSync(cmd)) {
-      console.log(chalk.red("peak: project name is exist!"));
+      console.log(chalk.red("rf: project name is exist!"));
       process.exit(1);
     } else {
-      console.log(chalk.green("peak: executing command (new...)."));
+      console.log(chalk.green("rf: executing command (new...)."));
       const args = process.argv.slice(3);
-      // const subcmd = program.args[0];
       const runPath = executable(process.argv.slice(2, 3));
-      wrap(spawn(runPath, args, { stdio: "inherit", customFds: [0, 1, 2] }));
+      // wrap(spawn.sync(runPath, args, { stdio: "inherit" }));
+      console.log(spawn.sync(runPath, args, { stdio: "inherit" }));
     }
   })
   .on("--help", function() {
     console.log("  Examples:");
     console.log();
-    console.log("    $ peak new react-demo");
+    console.log("    $ rf new react-demo");
     console.log();
   });
 
 program
   .command("*")
-  .description("无此命令")
+  .description("no command")
   .action(function(cmd) {
-    console.log('peak: deploying "%s"', cmd);
+    console.log('rf: deploying "%s"', cmd);
   });
 
 program.parse(process.argv);
