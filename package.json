@@ -1,6 +1,10 @@
 {
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
+    "format": "prettier --trailing-comma es5 --write",
     "precommit": "lint-staged"
   },
   "author": {
@@ -23,12 +27,13 @@
     ]
   },
   "homepage": "https://github.com/Mrlyjoutlook/rf-cli/blob/master/README.md",
-  "dependencies": {},
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
+    "lerna": "^2.11.0",
     "lint-staged": "^7.1.3",
     "prettier": "^1.13.4"
   },

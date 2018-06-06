@@ -1,10 +1,8 @@
 #!/usr/bin/env node
-"use strict";
 
 const path = require("path");
-const fs = require("fs-extra");
 const program = require("commander");
-const chalk = require("chalk");
+const fs = require("fs-extra");
 const spawn = require("cross-spawn");
 const pg = require("../package.json");
 
@@ -31,17 +29,9 @@ program
   .description("build project")
   .usage("<project name>")
   .action(function(cmd) {
-    console.log(chalk.green("rf: build project"));
-    if (fs.existsSync(cmd)) {
-      console.log(chalk.red("rf: project name is exist!"));
-      process.exit(1);
-    } else {
-      console.log(chalk.green("rf: executing command (new...)."));
-      const args = process.argv.slice(3);
-      const runPath = executable(process.argv.slice(2, 3));
-      // wrap(spawn.sync(runPath, args, { stdio: "inherit" }));
-      console.log(spawn.sync(runPath, args, { stdio: "inherit" }));
-    }
+    const args = process.argv.slice(3);
+    const runPath = executable(process.argv.slice(2, 3));
+    wrap(spawn(runPath, args, { stdio: "inherit" }));
   })
   .on("--help", function() {
     console.log("  Examples:");
