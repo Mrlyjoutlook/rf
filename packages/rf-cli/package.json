@@ -16,7 +16,8 @@
     "execa": "^0.10.0",
     "lodash": "^4.17.10",
     "ora": "^2.1.0",
-    "prompts": "^0.1.8"
+    "prompts": "^0.1.8",
+    "rf-template": "^0.0.1"
   },
   "peerDependencies": {
     "rf-template": "^0.0.1"

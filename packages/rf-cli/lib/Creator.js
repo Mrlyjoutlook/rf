@@ -11,8 +11,8 @@ module.exports = class Creator extends EventEmitter {
     super();
     this.name = name;
     this.context = context;
-    this.injectedPrompts = []; // 选项添加功能
-    this.featurePrompt = []; // 直接添加功能
+    this.featurePrompt = []; // 特性功能
+    this.injectedPrompts = []; // 添加功能
     this.promptCompleteCbs = []; // 编译回调函数
     this.promptFunCbs = []; // 开发功能
     const prompts = new LoadPrompt(this);
@@ -26,21 +26,27 @@ module.exports = class Creator extends EventEmitter {
   async prompt() {
     await clearConsole();
     const promptQueue = new Queue(this.injectedPrompts);
+    const answers = {
+      template: [],
+      complete: [],
+      features: [],
+    };
     for (let i = 0; i <= promptQueue.size(); i++) {
       const p = promptQueue.shift();
       const result = await prompts(p.prompt);
-      switch (p.type) {
-        case "plan":
-          console.log(chalk.green(result.value));
-          break;
-        case "complete":
-          console.log("b");
-          break;
-        default:
-          console.log("no");
-          break;
+      if (p.type === "template") {
+        answers.template.push(result.value);
+      }
+      if (p.type === "complete") {
+        Array.isArray(result.value)
+          ? answers.complete.concat(result.value)
+          : answers.complete.push(result.value);
+      }
+      if (p.type === "features") {
+        answers.features.push(result.value);
       }
     }
+    this.promptCompleteCbs.forEach(cb => cb(answers));
   }
 
   run(command, args) {

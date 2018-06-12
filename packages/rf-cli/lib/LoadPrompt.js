@@ -14,8 +14,4 @@ module.exports = class PromptModuleAPI {
   onPromptComplete(cb) {
     this.creator.promptCompleteCbs.push(cb);
   }
-
-  onPromptFuns(cb) {
-    this.creator.promptFunCbs.push(cb);
-  }
 };
