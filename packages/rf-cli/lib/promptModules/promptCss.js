@@ -16,6 +16,6 @@ module.exports = cli => {
     },
   });
   cli.onPromptComplete(answers => {
-    console.log(answers);
+    answers.aa = "aa";
   });
 };

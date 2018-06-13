@@ -20,7 +20,8 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async create() {
-    await this.prompt();
+    const answers = await this.prompt();
+    console.log(answers);
   }
 
   async prompt() {
@@ -39,7 +40,7 @@ module.exports = class Creator extends EventEmitter {
       }
       if (p.type === "complete") {
         Array.isArray(result.value)
-          ? answers.complete.concat(result.value)
+          ? answers.complete.push(...result.value)
           : answers.complete.push(result.value);
       }
       if (p.type === "features") {
@@ -47,6 +48,7 @@ module.exports = class Creator extends EventEmitter {
       }
     }
     this.promptCompleteCbs.forEach(cb => cb(answers));
+    return answers;
   }
 
   run(command, args) {
