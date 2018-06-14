@@ -1,6 +1,6 @@
 const EventEmitter = require("events").EventEmitter;
 const execa = require("execa");
-const chalk = require("chalk");
+// const chalk = require("chalk");
 const prompts = require("prompts");
 const LoadPrompt = require("./LoadPrompt");
 const clearConsole = require("./utils/clearConsole");
@@ -30,7 +30,7 @@ module.exports = class Creator extends EventEmitter {
     const answers = {
       template: [],
       complete: [],
-      features: []
+      features: [],
     };
     for (let i = 0; i <= promptQueue.size(); i++) {
       const p = promptQueue.shift();
