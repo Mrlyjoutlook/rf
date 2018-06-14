@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "scripts": {
-    "format": "prettier --trailing-comma es5 --write",
+    "format": "prettier --write",
     "precommit": "lint-staged"
   },
   "author": {
@@ -22,7 +22,7 @@
   ],
   "lint-staged": {
     "*.js": [
-      "prettier --trailing-comma es5 --write",
+      "prettier --write",
       "git add"
     ]
   },

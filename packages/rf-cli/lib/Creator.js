@@ -30,7 +30,7 @@ module.exports = class Creator extends EventEmitter {
     const answers = {
       template: [],
       complete: [],
-      features: [],
+      features: []
     };
     for (let i = 0; i <= promptQueue.size(); i++) {
       const p = promptQueue.shift();
