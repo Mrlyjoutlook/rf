@@ -15,7 +15,5 @@ module.exports = cli => {
       hint: "- Space to select. Return to submit",
     },
   });
-  cli.onPromptComplete(answers => {
-    answers.aa = "aa";
-  });
+  cli.onPromptComplete(answers => {});
 };
