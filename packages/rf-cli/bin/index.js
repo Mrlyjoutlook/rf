@@ -28,7 +28,7 @@ program
   .command("new")
   .description("build project")
   .usage("<project name>")
-  .action(function(cmd) {
+  .action(function() {
     const args = process.argv.slice(3);
     const runPath = executable(process.argv.slice(2, 3));
     wrap(spawn(runPath, args, { stdio: "inherit" }));

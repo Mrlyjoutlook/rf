@@ -8,9 +8,9 @@ module.exports = cli => {
       choices: [
         { title: "create-react-app template", value: "default-template" },
         { title: "rf mobx template", value: "mobx-template" },
-        { title: "rf redux template", value: "redux-template" },
+        { title: "rf redux template", value: "redux-template" }
       ],
-      initial: 0,
-    },
+      initial: 0
+    }
   });
 };

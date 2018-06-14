@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "chalk": "^2.4.1",
     "commander": "^2.15.1",
     "cross-spawn": "^6.0.5",
@@ -16,8 +17,7 @@
     "execa": "^0.10.0",
     "lodash": "^4.17.10",
     "ora": "^2.1.0",
-    "prompts": "^0.1.8",
-    "rf-template": "^0.0.1"
+    "prompts": "^0.1.8"
   },
   "peerDependencies": {
     "rf-template": "^0.0.1"
