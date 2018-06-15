@@ -1,11 +1,14 @@
 const EventEmitter = require("events").EventEmitter;
 const execa = require("execa");
-// const chalk = require("chalk");
+const chalk = require("chalk");
 const prompts = require("prompts");
+const fs = require("fs-extra");
+const path = require("path");
 const LoadPrompt = require("./LoadPrompt");
 const fetchRemoteTemplate = require("./fetchRemoteTemplate");
 const clearConsole = require("./utils/clearConsole");
 const Queue = require("./utils/queue");
+const { tmpRfTemplate } = require("./env/local-path");
 
 module.exports = class Creator extends EventEmitter {
   constructor(name, context, promptModules) {
@@ -22,9 +25,8 @@ module.exports = class Creator extends EventEmitter {
 
   async create() {
     const answers = await this.prompt();
-    console.log(answers);
     // let preset;
-    this.generatorTemplate(answers.base);
+    this.generatorTemplate(answers.base.template);
   }
 
   // 提示选项
@@ -53,12 +55,25 @@ module.exports = class Creator extends EventEmitter {
     return answers;
   }
 
-  // 获取远程版本
-  async generatorTemplate() {
-    const bool = await fetchRemoteTemplate();
+  async generatorTemplate(temp) {
+    const bool = await fetchRemoteTemplate(!fs.existsSync(tmpRfTemplate));
     if (bool) {
-      console.log(bool);
-      this.run("npm install rf-template@lastest --peer");
+      try {
+        await fs.copySync(
+          path.join(tmpRfTemplate, "/packages/rf-template"),
+          process.cwd() + "/" + this.name
+        );
+        console.log(process.cwd() + "/" + this.name + "/template/" + temp);
+        await fs.move(
+          process.cwd() + "/" + this.name + "/template/" + temp,
+          process.cwd() + "/" + this.name + "/src",
+          { overwrite: true }
+        );
+        await fs.remove(process.cwd() + "/" + this.name + "/template");
+      } catch (error) {
+        console.log(chalk.red("generator template fail", error));
+        throw error;
+      }
     }
   }
 

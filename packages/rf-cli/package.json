@@ -15,11 +15,9 @@
     "cross-spawn": "^6.0.5",
     "download-git-repo": "^1.0.2",
     "execa": "^0.10.0",
+    "fs-extra": "^6.0.1",
     "lodash": "^4.17.10",
     "ora": "^2.1.0",
     "prompts": "^0.1.8"
-  },
-  "peerDependencies": {
-    "rf-template": "^0.0.1"
   }
 }

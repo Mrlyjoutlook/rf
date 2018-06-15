@@ -10,9 +10,12 @@ const Creator = require("../lib/Creator");
 const args = process.argv[2];
 
 function getPromptModules() {
-  return ["promptTemplate", "packageManager", "promptCss"].map(file =>
-    require(`../lib/promptModules/${file}`)
-  );
+  return [
+    "promptTemplate",
+    "promptPackageManager",
+    "promptCss",
+    "promptAdaptae"
+  ].map(file => require(`../lib/promptModules/${file}`));
 }
 
 async function create(projectName, options) {
