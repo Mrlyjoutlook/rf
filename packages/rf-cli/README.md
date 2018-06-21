@@ -10,7 +10,7 @@
   - [ ] redux
 - css
   - [x] postcss, default
-  - [ ] less
+  - [x] less
   - [ ] sass
 - features
   - [ ] rem

@@ -1,12 +1,14 @@
 const EventEmitter = require("events").EventEmitter;
 const execa = require("execa");
 const chalk = require("chalk");
+const debug = require("debug");
 const prompts = require("prompts");
 const fs = require("fs-extra");
 const path = require("path");
 const LoadPrompt = require("./LoadPrompt");
 const fetchRemoteTemplate = require("./fetchRemoteTemplate");
 const clearConsole = require("./utils/clearConsole");
+const writeFileTree = require("./utils/writeFileTree");
 const Queue = require("./utils/queue");
 const { tmpRfTemplate } = require("./env/local-path");
 
@@ -24,15 +26,35 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async create() {
-    const answers = await this.prompt();
-    // let preset;
-    this.generatorTemplate(answers.base.template);
+    const { answers, preset } = await this.prompt();
+    const { context } = this;
+    await this.generatorTemplate(answers.base.template);
+    // generate package.json with plugin dependencies
+    const pkg = {
+      name,
+      version: "0.1.0",
+      private: true,
+      devDependencies: {}
+    };
+    const deps = Object.keys(preset.plugins);
+    deps.forEach(dep => {
+      pkg.devDependencies[dep] =
+        preset.plugins[dep].version ||
+        (/^@vue/.test(dep) ? `^${latest}` : `latest`);
+    });
+    await writeFileTree(context, {
+      "rf.js": JSON.stringify(preset.configFile, null, 2)
+    });
   }
 
   // 提示选项
   async prompt() {
     await clearConsole();
     const promptQueue = new Queue(this.injectedPrompts);
+    let preset = {
+      configFile: [],
+      plugins: []
+    };
     const answers = {
       base: {},
       complete: [],
@@ -51,8 +73,16 @@ module.exports = class Creator extends EventEmitter {
         answers.base[p.type] = result.value;
       }
     }
-    this.promptCompleteCbs.forEach(cb => cb(answers));
-    return answers;
+    this.promptCompleteCbs.forEach(cb => cb(answers, preset));
+    console.log(preset);
+
+    debug("rf-cli:answers")(answers);
+    debug("rf-cli:preset")(preset);
+
+    return {
+      answers,
+      preset
+    };
   }
 
   async generatorTemplate(temp) {
@@ -63,7 +93,6 @@ module.exports = class Creator extends EventEmitter {
           path.join(tmpRfTemplate, "/packages/rf-template"),
           process.cwd() + "/" + this.name
         );
-        console.log(process.cwd() + "/" + this.name + "/template/" + temp);
         await fs.move(
           process.cwd() + "/" + this.name + "/template/" + temp,
           process.cwd() + "/" + this.name + "/src",

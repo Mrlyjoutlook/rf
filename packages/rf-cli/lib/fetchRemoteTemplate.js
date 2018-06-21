@@ -1,6 +1,5 @@
 const axios = require("axios");
 const chalk = require("chalk");
-const path = require("path");
 const downloadGitRepo = require("download-git-repo");
 const { logWithSpinner, stopSpinner } = require("./utils/spinner");
 const { tmpRfTemplate } = require("./env/local-path");
