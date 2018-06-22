@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-// const { mkdirpSync, copySync, writeJsonSync } = require("fs-extra");
-// const vfs = require("vinyl-fs");
 const path = require("path");
 const chalk = require("chalk");
 const fs = require("fs-extra");
