@@ -16,11 +16,11 @@ module.exports = cli => {
   });
   cli.onPromptComplete((answers, preset) => {
     if (answers.complete.includes("less")) {
-      preset.configFile.push = `
+      preset.configFile.push(`
         // less 
         let lessLoader = {};
         config.module.rules[1]['oneOf'].psuh = lessLoader;
-      `;
+      `);
       preset.plugins["less-loader"] = {};
     }
   });

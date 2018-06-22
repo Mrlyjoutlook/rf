@@ -27,7 +27,7 @@ module.exports = class Creator extends EventEmitter {
 
   async create() {
     const { answers, preset } = await this.prompt();
-    const { context } = this;
+    const { context, name } = this;
     await this.generatorTemplate(answers.base.template);
     // generate package.json with plugin dependencies
     const pkg = {
@@ -38,12 +38,27 @@ module.exports = class Creator extends EventEmitter {
     };
     const deps = Object.keys(preset.plugins);
     deps.forEach(dep => {
-      pkg.devDependencies[dep] =
-        preset.plugins[dep].version ||
-        (/^@vue/.test(dep) ? `^${latest}` : `latest`);
+      pkg.devDependencies[dep] = preset.plugins[dep].version || "latest";
     });
+    // edit rf.js file content according to answers
+    let content = fs.readFileSync(
+      process.cwd() + "/" + name + "/rf.js",
+      "utf8"
+    );
+    if (
+      !content.match(/\/\/ @rf-cli-complete-begin/) ||
+      !content.match(/\/\/ @rf-cli-complete-end/)
+    ) {
+      return false;
+    }
+    content = content.replace(
+      /\/\/ @rf-cli-complete-begin([\s\S]*?)\/\/ @rf-cli-complete-end/gm,
+      Buffer.from(...preset.configFile)
+    );
+    // overrides file
     await writeFileTree(context, {
-      "rf.js": JSON.stringify(preset.configFile, null, 2)
+      "rf.js": content,
+      "package.json": JSON.stringify(pkg, null, 2)
     });
   }
 
@@ -74,7 +89,6 @@ module.exports = class Creator extends EventEmitter {
       }
     }
     this.promptCompleteCbs.forEach(cb => cb(answers, preset));
-    console.log(preset);
 
     debug("rf-cli:answers")(answers);
     debug("rf-cli:preset")(preset);
