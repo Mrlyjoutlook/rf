@@ -18,7 +18,32 @@ module.exports = cli => {
     if (answers.complete.includes("less")) {
       preset.configFile.push(`
         // less 
-        let lessLoader = {};
+        let lessLoader = {
+          test: /\.less$/,
+          use: [
+            require.resolve('style-loader'),
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                importLoaders: 1,
+              },
+            },
+            {
+              loader: require.resolve('postcss-loader'),
+              options: {
+                config: {
+                  path: path.resolve(__dirname, '../../'),
+                },
+              },
+            },
+            {
+              loader: require.resolve('less-loader'),
+              options: {
+                modifyVars: theme,
+              },
+            },
+          ],
+        };
         config.module.rules[1]['oneOf'].psuh = lessLoader;
       `);
       preset.plugins["less-loader"] = {};

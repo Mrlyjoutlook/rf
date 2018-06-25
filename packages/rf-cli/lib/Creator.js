@@ -10,7 +10,7 @@ const fetchRemoteTemplate = require("./fetchRemoteTemplate");
 const clearConsole = require("./utils/clearConsole");
 const writeFileTree = require("./utils/writeFileTree");
 const Queue = require("./utils/queue");
-const { tmpRfTemplate } = require("./env/local-path");
+const { tmpRfTemplate, rfTemp } = require("./env/local-path");
 
 module.exports = class Creator extends EventEmitter {
   constructor(name, context, promptModules) {
@@ -51,14 +51,18 @@ module.exports = class Creator extends EventEmitter {
     ) {
       return false;
     }
-    content = content.replace(
-      /\/\/ @rf-cli-complete-begin([\s\S]*?)\/\/ @rf-cli-complete-end/gm,
-      Buffer.from(...preset.configFile)
-    );
+    if (preset.configFile.length !== 0) {
+      content = content.replace(
+        /\/\/ @rf-cli-complete-begin([\s\S]*?)\/\/ @rf-cli-complete-end/gm,
+        Buffer.from(...preset.configFile)
+      );
+    }
     // overrides file
+    const tempPkg = require(rfTemp + "/package.json");
+
     await writeFileTree(context, {
       "rf.js": content,
-      "package.json": JSON.stringify(pkg, null, 2)
+      "package.json": JSON.stringify(Object.assign({}, tempPkg, pkg), null, 2)
     });
   }
 
@@ -100,7 +104,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async generatorTemplate(temp) {
-    const bool = await fetchRemoteTemplate(!fs.existsSync(tmpRfTemplate));
+    const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
         await fs.copySync(

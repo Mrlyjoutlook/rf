@@ -24,15 +24,24 @@ module.exports = function fetchRemoteTemplate(isGet) {
       "https://raw.githubusercontent.com/Mrlyjoutlook/rf-cli/master/packages/rf-template/package.json"
     );
     if (status === 200) {
+      stopSpinner();
       const currentVersion = require(tmpRfTemplate +
         "/packages/rf-template/package.json").version;
       console.log("");
       console.log(chalk.green("current version:", currentVersion));
       console.log(chalk.green("remote version:", data.version));
-      stopSpinner();
+      console.log("");
+      const result = currentVersion !== data.version;
+      result
+        ? console.log(
+            chalk.yellowBright("The current version is not the latest version")
+          )
+        : console.log(
+            chalk.green("The current version is the latest version.")
+          );
       return currentVersion !== data.version ? download() : true;
     }
   };
 
-  return isGet ? download() : checkVersion();
+  return isGet ? checkVersion() : download();
 };

@@ -1,5 +1,14 @@
 {
   "name": "rf-template",
-  "version": "0.0.3",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "rf-scripts start",
+    "build": "rf-scripts build"
+  },
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "rf-scripts": "latest"
+  },
   "license": "MIT"
 }
