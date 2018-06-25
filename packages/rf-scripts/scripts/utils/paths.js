@@ -31,7 +31,8 @@ module.exports = Object.assign(
   {
     scriptVersion: modulePath,
     configOverrides: config_overrides,
-    customScriptsIndex: custom_scripts ? cs_index : -1
+    customScriptsIndex: custom_scripts ? cs_index : -1,
+    dll: path.resolve(process.cwd() + "./dll")
   },
   paths
 );

@@ -17,36 +17,25 @@ module.exports = cli => {
   cli.onPromptComplete((answers, preset) => {
     if (answers.complete.includes("less")) {
       preset.configFile.push(`
-        // less 
-        let lessLoader = {
-          test: /\.less$/,
-          use: [
-            require.resolve('style-loader'),
-            {
-              loader: require.resolve('css-loader'),
-              options: {
-                importLoaders: 1,
-              },
-            },
-            {
-              loader: require.resolve('postcss-loader'),
-              options: {
-                config: {
-                  path: path.resolve(__dirname, '../../'),
-                },
-              },
-            },
-            {
-              loader: require.resolve('less-loader'),
-              options: {
-                modifyVars: theme,
-              },
-            },
-          ],
-        };
-        config.module.rules[1]['oneOf'].psuh = lessLoader;
+        // less
+        let cssLoader = config.module.rules[1]["oneOf"][2];
+        cssLoader.test = /\.(css|less)$/;
+        if (env === "development") {
+          cssLoader.use.push({
+            loader: require.resolve("less-loader")
+          });
+        } else {
+          cssLoader.loader.push({
+            loader: require.resolve("less-loader")
+          });
+        }
       `);
-      preset.plugins["less-loader"] = {};
+      preset.plugins["less"] = {
+        version: "^3.0.4"
+      };
+      preset.plugins["less-loader"] = {
+        version: "^4.1.0"
+      };
     }
   });
 };

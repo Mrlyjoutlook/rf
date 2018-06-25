@@ -1,171 +1,26 @@
-0 silly input [ 'publish' ]
-1 silly flags { _: [ 'publish' ],
+0 silly input [ 'debug' ]
+1 silly flags { _: [ 'add' ],
 1 silly flags   'reject-cycles': false,
 1 silly flags   rejectCycles: false,
-1 silly flags   'force-publish': true,
-1 silly flags   forcePublish: true }
+1 silly flags   dev: false,
+1 silly flags   D: false,
+1 silly flags   scope: 'rf-script',
+1 silly flags   args: [ 'debug' ] }
 2 verbose rootPath /Users/j.ie/react/rf-cli
 3 info version 2.11.0
 4 silly isInitialized
 5 silly isInitialized true
 6 silly existsSync /Users/j.ie/react/rf-cli/VERSION
 7 info versioning independent
-8 silly initialize attempt
-9 silly isDetachedHead
-10 silly getCurrentBranch
-11 verbose getCurrentBranch master
-12 verbose isDetachedHead false
-13 silly getCurrentBranch
-14 verbose getCurrentBranch master
-15 silly getUpdates
-16 info Checking for updated packages...
-17 silly hasTags
-18 verbose hasTags true
-19 silly getLastTag
-20 verbose getLastTag rf-cli@0.0.4
-21 info Comparing with rf-cli@0.0.4.
-22 verbose updated rf-cli
-23 verbose updated rf-scripts
-24 verbose updated rf-template
-25 info Checking for prereleased packages...
-26 silly collectDependents
-27 silly isPackageDependentOf rf-cli rf-cli
-28 silly isPackageDependentOf rf-cli rf-scripts
-29 silly isPackageDependentOf rf-cli rf-template
-30 silly isPackageDependentOf rf-scripts rf-cli
-31 silly isPackageDependentOf rf-scripts rf-scripts
-32 silly isPackageDependentOf rf-scripts rf-template
-33 silly isPackageDependentOf rf-template rf-cli
-34 silly isPackageDependentOf rf-template rf-scripts
-35 silly isPackageDependentOf rf-template rf-template
-36 silly collectUpdates
-37 verbose has filtered update rf-cli
-38 verbose has filtered update rf-scripts
-39 verbose has filtered update rf-template
-40 silly initialize success
-41 silly execute attempt
-42 silly runScriptSync preversion undefined
-43 silly runScriptSync preversion rf-cli
-44 silly runScriptSync version rf-cli
-45 silly runScriptSync preversion rf-scripts
-46 silly runScriptSync version rf-scripts
-47 silly runScriptSync preversion rf-template
-48 silly runScriptSync version rf-template
-49 silly runScriptSync version undefined
-50 silly addFile /Users/j.ie/react/rf-cli/packages/rf-cli/package.json
-51 silly addFile /Users/j.ie/react/rf-cli/packages/rf-scripts/package.json
-52 silly addFile /Users/j.ie/react/rf-cli/packages/rf-template/package.json
-53 silly commit Publish
-53 silly commit
-53 silly commit  - rf-cli@0.0.5
-53 silly commit  - rf-scripts@0.0.4
-53 silly commit  - rf-template@0.0.3
-54 verbose commit [ 'commit',
-54 verbose commit   '--no-verify',
-54 verbose commit   '-F',
-54 verbose commit   '/private/var/folders/tg/6s67j1ln41b5zfr97y3ynzn00000gn/T/c7ea678a-c29a-46b7-b710-fadab38eaf93/lerna-commit.txt' ]
-55 silly addTag rf-cli@0.0.5
-56 silly addTag rf-scripts@0.0.4
-57 silly addTag rf-template@0.0.3
-58 silly runScriptSync postversion rf-cli
-59 silly runScriptSync postversion rf-scripts
-60 silly runScriptSync postversion rf-template
-61 silly runScriptSync postversion undefined
-62 info publish Publishing packages to npm...
-63 silly existsSync /Users/j.ie/react/rf-cli/packages/rf-cli/scripts/prepublish.js
-64 verbose execScript No prepublish script found at /Users/j.ie/react/rf-cli/packages/rf-cli/scripts/prepublish.js
-65 silly existsSync /Users/j.ie/react/rf-cli/packages/rf-scripts/scripts/prepublish.js
-66 verbose execScript No prepublish script found at /Users/j.ie/react/rf-cli/packages/rf-scripts/scripts/prepublish.js
-67 silly existsSync /Users/j.ie/react/rf-cli/packages/rf-template/scripts/prepublish.js
-68 verbose execScript No prepublish script found at /Users/j.ie/react/rf-cli/packages/rf-template/scripts/prepublish.js
-69 verbose publishing rf-cli
-70 silly publishTaggedInDir latest rf-cli
-71 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-72 verbose publishing rf-scripts
-73 silly publishTaggedInDir latest rf-scripts
-74 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-75 verbose publishing rf-template
-76 silly publishTaggedInDir latest rf-template
-77 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-78 error publish Retrying failed publish: rf-template
-79 verbose publish error undefined
-80 verbose publishing rf-template
-81 silly publishTaggedInDir latest rf-template
-82 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-83 error publish Retrying failed publish: rf-cli
-84 verbose publish error undefined
-85 verbose publishing rf-cli
-86 silly publishTaggedInDir latest rf-cli
-87 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-88 error publish Retrying failed publish: rf-scripts
-89 verbose publish error undefined
-90 verbose publishing rf-scripts
-91 silly publishTaggedInDir latest rf-scripts
-92 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-93 error publish Retrying failed publish: rf-template
-94 verbose publish error undefined
-95 verbose publishing rf-template
-96 silly publishTaggedInDir latest rf-template
-97 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-98 error publish Retrying failed publish: rf-cli
-99 verbose publish error undefined
-100 verbose publishing rf-cli
-101 silly publishTaggedInDir latest rf-cli
-102 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-103 error publish Retrying failed publish: rf-scripts
-104 verbose publish error undefined
-105 verbose publishing rf-scripts
-106 silly publishTaggedInDir latest rf-scripts
-107 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-108 error publish Retrying failed publish: rf-template
-109 verbose publish error undefined
-110 verbose publishing rf-template
-111 silly publishTaggedInDir latest rf-template
-112 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-113 error publish Retrying failed publish: rf-cli
-114 verbose publish error undefined
-115 verbose publishing rf-cli
-116 silly publishTaggedInDir latest rf-cli
-117 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-118 error publish Retrying failed publish: rf-scripts
-119 verbose publish error undefined
-120 verbose publishing rf-scripts
-121 silly publishTaggedInDir latest rf-scripts
-122 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-123 error publish Retrying failed publish: rf-cli
-124 verbose publish error undefined
-125 verbose publishing rf-cli
-126 silly publishTaggedInDir latest rf-cli
-127 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-128 error publish Retrying failed publish: rf-template
-129 verbose publish error undefined
-130 verbose publishing rf-template
-131 silly publishTaggedInDir latest rf-template
-132 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-133 error publish Retrying failed publish: rf-scripts
-134 verbose publish error undefined
-135 verbose publishing rf-scripts
-136 silly publishTaggedInDir latest rf-scripts
-137 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-138 error publish Ran out of retries while publishing rf-cli Error: Command failed: yarn publish --tag latest --new-version 0.0.5
-138 error publish error No token found and can't prompt for login when running with --non-interactive.
-138 error publish yarn publish v1.6.0
-138 error publish [1/4] Bumping version...
-138 error publish info Current version: 0.0.5
-138 error publish [2/4] Logging in...
-138 error publish info Visit https://yarnpkg.com/en/docs/cli/publish for documentation about this command.
-138 error publish
-138 error publish     at Promise.all.then.arr (/Users/j.ie/.config/yarn/global/node_modules/execa/index.js:236:11)
-138 error publish     at <anonymous>
-138 error publish     at process._tickCallback (internal/process/next_tick.js:182:7)
-139 error execute callback with error
-140 error Error: Command failed: yarn publish --tag latest --new-version 0.0.5
-140 error error No token found and can't prompt for login when running with --non-interactive.
-140 error yarn publish v1.6.0
-140 error [1/4] Bumping version...
-140 error info Current version: 0.0.5
-140 error [2/4] Logging in...
-140 error info Visit https://yarnpkg.com/en/docs/cli/publish for documentation about this command.
-140 error
-140 error     at Promise.all.then.arr (/Users/j.ie/.config/yarn/global/node_modules/execa/index.js:236:11)
-140 error     at <anonymous>
+8 info scope rf-script
+9 error EPACKAGES Errored while collecting packages and package graph
+10 error Error: No packages found that match scope 'rf-script'
+10 error     at Function.filterPackages (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/PackageUtilities.js:252:17)
+10 error     at AddCommand.runPreparations (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/Command.js:333:60)
+10 error     at /Users/j.ie/.config/yarn/global/node_modules/lerna/lib/Command.js:209:18
+10 error     at new Promise (<anonymous>)
+10 error     at AddCommand.run (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/Command.js:193:14)
+10 error     at Object.handler (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/commands/AddCommand.js:79:14)
+10 error     at Object.self.runCommand (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/yargs/lib/command.js:233:22)
+10 error     at Object.Yargs.self._parseArgs (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/yargs/yargs.js:990:30)
+10 error     at Object.Yargs.self.parse (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/yargs/yargs.js:532:23)

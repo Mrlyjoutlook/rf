@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/e`nv node
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -34,6 +34,16 @@ switch (script) {
             "be shutting down."
         );
       }
+      process.exit(1);
+    }
+    process.exit(result.status);
+    break;
+  }
+  case "dll": {
+    const result = spawn.sync("node", require.resolve("../scripts/dll"), {
+      stdio: "inherit"
+    });
+    if (result.signal) {
       process.exit(1);
     }
     process.exit(result.status);

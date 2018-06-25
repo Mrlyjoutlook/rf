@@ -2,13 +2,41 @@
   "name": "rf-template",
   "version": "0.0.1",
   "scripts": {
-    "start": "rf-scripts start",
-    "build": "rf-scripts build"
+    "start": "better-npm-run start",
+    "build": "better-npm-run build",
+    "dll": "better-npm-run dll"
+  },
+  "betterScripts": {
+    "start": {
+      "command": "rf-scripts start",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "development"
+      }
+    },
+    "build": {
+      "command": "rf-scripts start",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
+      }
+    },
+    "dll": {
+      "command": "rf-scripts dll",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
+      }
+    }
   },
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4",
     "rf-scripts": "latest"
+  },
+  "devDependencies": {
+    "better-npm-run": "^0.1.0"
   },
   "license": "MIT"
 }

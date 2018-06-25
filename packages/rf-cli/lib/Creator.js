@@ -36,13 +36,17 @@ module.exports = class Creator extends EventEmitter {
       private: true,
       devDependencies: {}
     };
+    const config = {
+      public_path: "",
+      compiler_commons: []
+    };
     const deps = Object.keys(preset.plugins);
     deps.forEach(dep => {
       pkg.devDependencies[dep] = preset.plugins[dep].version || "latest";
     });
     // edit rf.js file content according to answers
     let content = fs.readFileSync(
-      process.cwd() + "/" + name + "/rf.js",
+      process.cwd() + "/" + name + "/.rf.js",
       "utf8"
     );
     if (
@@ -57,13 +61,16 @@ module.exports = class Creator extends EventEmitter {
         Buffer.from(...preset.configFile)
       );
     }
+    preset.cbs.forEach(cb => cb(config, process.cwd() + "/" + this.name));
     // overrides file
     const tempPkg = require(rfTemp + "/package.json");
-
     await writeFileTree(context, {
       "rf.js": content,
       "package.json": JSON.stringify(Object.assign({}, tempPkg, pkg), null, 2)
     });
+    // add features
+    console.log(chalk.green("build OK!"));
+    console.log(chalk.green("run your project!"));
   }
 
   // 提示选项
@@ -72,7 +79,8 @@ module.exports = class Creator extends EventEmitter {
     const promptQueue = new Queue(this.injectedPrompts);
     let preset = {
       configFile: [],
-      plugins: []
+      plugins: [],
+      cbs: []
     };
     const answers = {
       base: {},
@@ -87,7 +95,9 @@ module.exports = class Creator extends EventEmitter {
           ? answers.complete.push(...result.value)
           : answers.complete.push(result.value);
       } else if (p.type === "features") {
-        answers.features.push(result.value);
+        if (result.value) {
+          answers.features.push(result.value);
+        }
       } else {
         answers.base[p.type] = result.value;
       }
@@ -107,6 +117,7 @@ module.exports = class Creator extends EventEmitter {
     const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
+        console.log(chalk.cyan("now, generator template form rf-template."));
         await fs.copySync(
           path.join(tmpRfTemplate, "/packages/rf-template"),
           process.cwd() + "/" + this.name
