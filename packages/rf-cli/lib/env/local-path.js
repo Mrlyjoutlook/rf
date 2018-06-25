@@ -12,5 +12,6 @@ const tmp = os.tmpdir();
 
 module.exports = {
   tmpRfTemplate: path.join(tmp, "rf-cli"),
-  rfTemp: path.join(tmp, "rf-cli/packages/rf-template")
+  rfTemp: path.join(tmp, "rf-cli/packages/rf-template"),
+  webpackConfigDllJs: path.resolve(__dirname, "../webpack.config.dll.js")
 };

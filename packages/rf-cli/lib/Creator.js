@@ -17,10 +17,8 @@ module.exports = class Creator extends EventEmitter {
     super();
     this.name = name;
     this.context = context;
-    this.featurePrompt = []; // 特性功能
     this.injectedPrompts = []; // 添加功能
     this.promptCompleteCbs = []; // 编译回调函数
-    this.promptFunCbs = []; // 开发功能
     const prompts = new LoadPrompt(this);
     promptModules.forEach(m => m(prompts));
   }
@@ -87,7 +85,8 @@ module.exports = class Creator extends EventEmitter {
       complete: [],
       features: []
     };
-    for (let i = 0; i <= promptQueue.size(); i++) {
+    const num = promptQueue.size();
+    for (let i = 0; i < num; i++) {
       const p = promptQueue.shift();
       const result = await prompts(p.prompt);
       if (p.type === "complete") {
@@ -135,7 +134,7 @@ module.exports = class Creator extends EventEmitter {
     }
   }
 
-  // 运行命令
+  // run command
   run(command, args) {
     if (!args) {
       [command, ...args] = command.split(/\s+/);
