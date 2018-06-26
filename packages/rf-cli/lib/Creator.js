@@ -5,6 +5,7 @@ const debug = require("debug");
 const prompts = require("prompts");
 const fs = require("fs-extra");
 const path = require("path");
+const { merge, assign } = require("lodash/object");
 const LoadPrompt = require("./LoadPrompt");
 const fetchRemoteTemplate = require("./fetchRemoteTemplate");
 const clearConsole = require("./utils/clearConsole");
@@ -28,12 +29,15 @@ module.exports = class Creator extends EventEmitter {
     const { context, name } = this;
     await this.generatorTemplate(answers.base.template);
     // generate package.json with plugin dependencies
-    const pkg = {
-      name,
-      version: "0.1.0",
-      private: true,
-      devDependencies: {}
-    };
+    const pkg = assign(
+      {
+        name,
+        version: "0.1.0",
+        private: true,
+        devDependencies: {}
+      },
+      preset.pkgFields
+    );
     const config = {
       public_path: "",
       compiler_commons: []
@@ -56,15 +60,15 @@ module.exports = class Creator extends EventEmitter {
     if (preset.configFile.length !== 0) {
       content = content.replace(
         /\/\/ @rf-cli-complete-begin([\s\S]*?)\/\/ @rf-cli-complete-end/gm,
-        Buffer.from(...preset.configFile)
+        Buffer.from(...preset.configFile, "urf8")
       );
     }
-    preset.cbs.forEach(cb => cb(config, process.cwd() + "/" + this.name));
+    preset.cbs.forEach(cb => cb(process.cwd() + "/" + this.name));
     // overrides file
     const tempPkg = require(rfTemp + "/package.json");
     await writeFileTree(context, {
       "rf.js": content,
-      "package.json": JSON.stringify(Object.assign({}, tempPkg, pkg), null, 2)
+      "package.json": JSON.stringify(merge(tempPkg, pkg), null, 2)
     });
     // add features
     console.log(chalk.green("build OK!"));
@@ -76,8 +80,9 @@ module.exports = class Creator extends EventEmitter {
     await clearConsole();
     const promptQueue = new Queue(this.injectedPrompts);
     let preset = {
-      configFile: [],
-      plugins: [],
+      configFile: [], // .rf.js compiling content
+      plugins: [], // pkg dependencies/devDependencies fields
+      pkgFields: {}, // pkg all fields
       cbs: []
     };
     const answers = {
@@ -113,7 +118,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async generatorTemplate(temp) {
-    const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
+    const bool = true; //await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
         console.log(chalk.cyan("now, generator template form rf-template."));

@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const { webpackConfigDllJs } = require("../env/local-path");
+const { dll } = require("../env/local-path");
 
 module.exports = cli => {
   cli.injectPrompt({
@@ -16,10 +16,23 @@ module.exports = cli => {
   });
   cli.onPromptComplete((answers, preset) => {
     if (answers.features.includes("dll")) {
-      preset.cbs.push(async (config, dir) => {
-        config["compiler_vendors"] = [];
-        await fs.copySync(webpackConfigDllJs, dir + "/dll");
-      });
+      if (!preset.pkgFields["scripts"]) {
+        preset.pkgFields["scripts"] = {};
+      }
+      preset.pkgFields["scripts"]["dll"] = "better-npm-run dll";
+      if (!preset.pkgFields["betterScripts"]) {
+        preset.pkgFields["betterScripts"] = {};
+      }
+      preset.pkgFields["betterScripts"]["dll"] = {
+        command: "rf-scripts dll",
+        env: {
+          DEBUG: "app:*",
+          NODE_ENV: "production"
+        }
+      };
+      // preset.cbs.push(async dir => {
+      //   await fs.copySync(dll, dir + "/dll");
+      // });
     }
   });
 };

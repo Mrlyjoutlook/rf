@@ -1,4 +1,4 @@
-#!/usr/bin/e`nv node
+#!/usr/bin/env node
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -40,9 +40,13 @@ switch (script) {
     break;
   }
   case "dll": {
-    const result = spawn.sync("node", require.resolve("../scripts/dll"), {
-      stdio: "inherit"
-    });
+    const result = spawn.sync(
+      "node",
+      nodeArgs.concat(require.resolve("../scripts/dll")),
+      {
+        stdio: "inherit"
+      }
+    );
     if (result.signal) {
       process.exit(1);
     }

@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "better-npm-run start",
-    "build": "better-npm-run build",
-    "dll": "better-npm-run dll"
+    "build": "better-npm-run build"
   },
   "betterScripts": {
     "start": {
@@ -16,13 +15,6 @@
     },
     "build": {
       "command": "rf-scripts start",
-      "env": {
-        "DEBUG": "app:*",
-        "NODE_ENV": "production"
-      }
-    },
-    "dll": {
-      "command": "rf-scripts dll",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production"

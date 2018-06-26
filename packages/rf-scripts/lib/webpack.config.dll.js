@@ -1,15 +1,15 @@
 const webpack = require("webpack");
-const paths = require("../env/paths");
-const peak = require("../../peak.json");
+const paths = require("./env/paths");
+const config = require("../.rf");
 
 module.exports = {
   target: "web",
   entry: {
-    vendor: peak.compiler_vendors
+    vendor: config.compiler_vendors
   },
   output: {
     path: paths.app_public,
-    filename: peak.js_path + "[name].[chunkhash:8].dll.js",
+    filename: config.js_path + "[name].[chunkhash:8].dll.js",
     library: "[name]_library"
   },
   plugins: [

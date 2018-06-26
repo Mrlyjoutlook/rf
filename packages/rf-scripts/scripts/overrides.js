@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const paths = require("./utils/paths");
-const rewireModule = require("./utils/rewireModule");
-const compose = require("./utils/compose")(process.env.NODE_ENV);
+const paths = require("../lib/utils/paths");
+const rewireModule = require("../lib/utils/rewireModule");
+const compose = require("../lib/utils/compose")(process.env.NODE_ENV);
 
 rewireModule(
   "react-scripts/scripts/" + process.argv[2],

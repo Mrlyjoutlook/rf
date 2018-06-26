@@ -3,10 +3,9 @@ const webpack = require("webpack");
 const chalk = require("chalk");
 const fs = require("fs-extra");
 const filesize = require("filesize");
-const config = require("../config/webpack/webpack.config.dll");
-const clearConsole = require("./utils/clearConsole");
-const paths = require("./utils/paths");
-const config = require("./utils/getConfig")();
+const clearConsole = require("../lib/utils/clearConsole");
+const { dll } = require("../lib/env/paths");
+const config = require("../lib/webpack.config.dll");
 
 clearConsole();
 debug("rf-scripts:dll")("Creating an optimized production build...");
@@ -27,7 +26,7 @@ webpack(config).run((err, stats) => {
     const { assets, endTime, startTime } = jsonStats;
     const { name, size } = assets[0];
 
-    fs.writeJsonSync(paths.dll, {
+    fs.writeJsonSync(dll, {
       name,
       size,
       chunk: config.compiler_vendors
