@@ -30,9 +30,9 @@ module.exports = cli => {
           NODE_ENV: "production"
         }
       };
-      // preset.cbs.push(async dir => {
-      //   await fs.copySync(dll, dir + "/dll");
-      // });
+      preset.cbs.push(config => {
+        config["compiler_vendors"] = [];
+      });
     }
   });
 };

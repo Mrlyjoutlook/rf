@@ -5,6 +5,7 @@ const debug = require("debug");
 const prompts = require("prompts");
 const fs = require("fs-extra");
 const path = require("path");
+const prettier = require("prettier");
 const { merge, assign } = require("lodash/object");
 const LoadPrompt = require("./LoadPrompt");
 const fetchRemoteTemplate = require("./fetchRemoteTemplate");
@@ -39,7 +40,10 @@ module.exports = class Creator extends EventEmitter {
       preset.pkgFields
     );
     const config = {
-      public_path: "",
+      public_path: "/",
+      js_path: "static/js/",
+      css_path: "static/css/",
+      media_path: "static/media/",
       compiler_commons: []
     };
     const deps = Object.keys(preset.plugins);
@@ -60,12 +64,22 @@ module.exports = class Creator extends EventEmitter {
     if (preset.configFile.length !== 0) {
       content = content.replace(
         /\/\/ @rf-cli-complete-begin([\s\S]*?)\/\/ @rf-cli-complete-end/gm,
-        Buffer.from(...preset.configFile, "urf8")
+        Buffer.from(...preset.configFile, "utf8")
       );
     }
-    preset.cbs.forEach(cb => cb(process.cwd() + "/" + this.name));
+    preset.cbs.forEach(cb => cb(config, process.cwd() + "/" + this.name));
+    if (!content.match(/\/\/ @rf-cli-config/)) {
+      return false;
+    }
+    content = content.replace(/\/\/ @rf-cli-config/gm, `config: ${config}`);
     // overrides file
     const tempPkg = require(rfTemp + "/package.json");
+    content = prettier.format(content, {
+      parser: "babylon",
+      trailingComma: "es5"
+    });
+    console.log(content);
+
     await writeFileTree(context, {
       "rf.js": content,
       "package.json": JSON.stringify(merge(tempPkg, pkg), null, 2)
