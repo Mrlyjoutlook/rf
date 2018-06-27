@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const fs = require("fs-extra");
 const filesize = require("filesize");
 const clearConsole = require("../lib/utils/clearConsole");
-const { dll } = require("../lib/env/paths");
+const { app_dll_dllConfigJson } = require("../lib/env/paths");
 const config = require("../lib/webpack.config.dll");
 
 clearConsole();
@@ -26,10 +26,10 @@ webpack(config).run((err, stats) => {
     const { assets, endTime, startTime } = jsonStats;
     const { name, size } = assets[0];
 
-    fs.writeJsonSync(dll, {
+    fs.writeJsonSync(app_dll_dllConfigJson, {
       name,
       size,
-      chunk: config.compiler_vendors
+      chunk: config.entry.vendor
     });
 
     console.log(chalk.dim("\nFile info:\n"));
@@ -42,7 +42,7 @@ webpack(config).run((err, stats) => {
     console.log("     " + chalk.dim("name: ") + chalk.cyan(name));
     console.log("     " + chalk.dim("size: ") + chalk.cyan(size));
     console.log(
-      "     " + chalk.dim("chunk: ") + chalk.cyan(peak.compiler_vendors)
+      "     " + chalk.dim("chunk: ") + chalk.cyan(config.entry.vendor)
     );
     console.log();
 

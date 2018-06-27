@@ -10,8 +10,8 @@ if (cs_index > -1 && cs_index + 1 <= process.argv.length) {
 }
 
 //Allow custom overrides package location
-const projectDir = path.resolve(fs.realpathSync(process.cwd()));
-const resolveApp = relativePath => path.resolve(projectDir, relativePath);
+const projectDir = fs.realpathSync(process.cwd());
+const resolveApp = relativePath => path.join(projectDir, relativePath);
 
 var config_overrides = projectDir + "/.rf";
 const co_index = process.argv.indexOf("--config-overrides");
@@ -29,6 +29,7 @@ const modulePath = path.join(
 
 const paths = require(modulePath + "/config/paths.js");
 
+// work dir or file path
 const projectDirAllPaths = fs
   .readdirSync(projectDir)
   .filter(
@@ -61,7 +62,9 @@ module.exports = Object.assign(
     scriptVersion: modulePath,
     configOverrides: config_overrides,
     customScriptsIndex: custom_scripts ? cs_index : -1,
-    projectDir
+    projectDir,
+    app_dll_dllManifestJson: resolveApp("/dll/dll-manifest.json"),
+    app_dll_dllConfigJson: resolveApp("/dll/dll-config.json")
   },
   paths,
   projectDirAllPaths

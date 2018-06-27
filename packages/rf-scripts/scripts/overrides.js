@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const paths = require("../lib/utils/paths");
+const paths = require("../lib/env/paths");
 const rewireModule = require("../lib/utils/rewireModule");
 const compose = require("../lib/utils/compose")(process.env.NODE_ENV);
 

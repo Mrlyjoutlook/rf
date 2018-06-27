@@ -3,15 +3,22 @@
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 const spawn = require("cross-spawn");
-const args = process.argv.slice(2);
+const checkDll = require("../lib/checkDll");
+const { configOverrides } = require("../lib/env/paths");
+const clearConsole = require("../lib/utils/clearConsole");
+const { config } = require(configOverrides);
 
+const args = process.argv.slice(2);
 const scriptIndex = args.findIndex(x => x === "build" || x === "start");
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
-switch (script) {
-  case "build":
-  case "start": {
+async function run() {
+  let result = true;
+  if (config.compiler_vendors) {
+    result = await checkDll();
+  }
+  if (result) {
     const result = spawn.sync(
       "node",
       nodeArgs
@@ -37,6 +44,15 @@ switch (script) {
       process.exit(1);
     }
     process.exit(result.status);
+  }
+}
+
+clearConsole();
+
+switch (script) {
+  case "build":
+  case "start": {
+    run();
     break;
   }
   case "dll": {

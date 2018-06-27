@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 const paths = require("./env/paths");
-const config = require("../.rf");
+const { config } = require(paths.configOverrides);
 
 module.exports = {
   target: "web",
@@ -17,7 +17,7 @@ module.exports = {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     }),
     new webpack.DllPlugin({
-      context: paths.app,
+      context: paths.projectDir,
       name: "[name]_library",
       path: paths.app_dll_dllManifestJson
     }),
