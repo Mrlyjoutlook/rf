@@ -1,5 +1,4 @@
-const fs = require("fs-extra");
-const { dll } = require("../env/local-path");
+const { projectDir, app_dll_dllManifestJson } = require("../env/local-path");
 
 module.exports = cli => {
   cli.injectPrompt({
@@ -30,6 +29,16 @@ module.exports = cli => {
           NODE_ENV: "production"
         }
       };
+      preset.imp.push("const webpack = require('webpack')");
+      preset.configFile.push(`
+        // webpack dll optimization
+        config.plugins.push(
+          new webpack.DllReferencePlugin({
+            context: "${projectDir}",
+            manifest: "${app_dll_dllManifestJson}",
+          }),
+        );
+      `);
       preset.cbs.push(config => {
         config["compiler_vendors"] = [];
       });

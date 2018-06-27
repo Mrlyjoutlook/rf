@@ -64,24 +64,35 @@ module.exports = class Creator extends EventEmitter {
     if (preset.configFile.length !== 0) {
       content = content.replace(
         /\/\/ @rf-cli-complete-begin([\s\S]*?)\/\/ @rf-cli-complete-end/gm,
-        Buffer.from(...preset.configFile, "utf8")
+        preset.configFile.reduce((p, n) => p + n, "")
       );
     }
     preset.cbs.forEach(cb => cb(config, process.cwd() + "/" + this.name));
     if (!content.match(/\/\/ @rf-cli-config/)) {
       return false;
     }
-    content = content.replace(/\/\/ @rf-cli-config/gm, `config: ${config}`);
+    content = content.replace(
+      /\/\/ @rf-cli-config/gm,
+      `config: ${JSON.stringify(config)},`
+    );
+    if (!content.match(/\/\/ @rf-cli-import/)) {
+      return false;
+    }
+    content = content.replace(
+      /\/\/ @rf-cli-import/gm,
+      preset.imp.reduce((p, n) => p + n + "\n", "")
+    );
+    console.log(content);
+
     // overrides file
     const tempPkg = require(rfTemp + "/package.json");
     content = prettier.format(content, {
       parser: "babylon",
       trailingComma: "es5"
     });
-    console.log(content);
 
     await writeFileTree(context, {
-      "rf.js": content,
+      ".rf.js": content,
       "package.json": JSON.stringify(merge(tempPkg, pkg), null, 2)
     });
     // add features
@@ -95,6 +106,7 @@ module.exports = class Creator extends EventEmitter {
     const promptQueue = new Queue(this.injectedPrompts);
     let preset = {
       configFile: [], // .rf.js compiling content
+      imp: [],
       plugins: [], // pkg dependencies/devDependencies fields
       pkgFields: {}, // pkg all fields
       cbs: []
@@ -132,7 +144,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async generatorTemplate(temp) {
-    const bool = true; //await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
+    const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
         console.log(chalk.cyan("now, generator template form rf-template."));

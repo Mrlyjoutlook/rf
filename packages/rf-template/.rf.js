@@ -1,3 +1,5 @@
+// @rf-cli-import
+
 module.exports = {
   // @rf-cli-config
   webpack: (config, env) => {

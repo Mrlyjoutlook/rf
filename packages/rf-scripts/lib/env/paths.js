@@ -1,5 +1,5 @@
-var path = require("path");
-var fs = require("fs");
+const path = require("path");
+const fs = require("fs");
 
 //try to detect if user is using a custom scripts version
 var custom_scripts = false;
