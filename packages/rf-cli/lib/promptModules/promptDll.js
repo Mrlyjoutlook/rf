@@ -6,7 +6,7 @@ module.exports = cli => {
     prompt: {
       type: "confirm",
       name: "value",
-      message: "Do you use webpack dll optimization?",
+      message: "Do you use webpack optimize dll?",
       format: answer => {
         return answer ? "dll" : false;
       },
@@ -30,18 +30,16 @@ module.exports = cli => {
         }
       };
       preset.imp.push("const webpack = require('webpack')");
+      preset.config["compiler_vendors"] = [];
       preset.configFile.push(`
-        // webpack dll optimization
+        // webpack optimize dll
         config.plugins.push(
           new webpack.DllReferencePlugin({
             context: "${projectDir}",
             manifest: "${app_dll_dllManifestJson}",
-          }),
+          })
         );
       `);
-      preset.cbs.push(config => {
-        config["compiler_vendors"] = [];
-      });
     }
   });
 };

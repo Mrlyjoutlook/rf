@@ -63,8 +63,8 @@ module.exports = Object.assign(
     configOverrides: config_overrides,
     customScriptsIndex: custom_scripts ? cs_index : -1,
     projectDir,
-    app_dll_dllManifestJson: resolveApp("/dll/dll-manifest.json"),
-    app_dll_dllConfigJson: resolveApp("/dll/dll-config.json")
+    app_dll_dllManifestJson: resolveApp("/lib/dll-manifest.json"),
+    app_dll_dllConfigJson: resolveApp("/lib/dll-config.json")
   },
   paths,
   projectDirAllPaths

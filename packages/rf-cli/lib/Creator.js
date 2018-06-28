@@ -7,6 +7,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const prettier = require("prettier");
 const { merge, assign } = require("lodash/object");
+const { uniq } = require("lodash/array");
 const LoadPrompt = require("./LoadPrompt");
 const fetchRemoteTemplate = require("./fetchRemoteTemplate");
 const clearConsole = require("./utils/clearConsole");
@@ -39,13 +40,6 @@ module.exports = class Creator extends EventEmitter {
       },
       preset.pkgFields
     );
-    const config = {
-      public_path: "/",
-      js_path: "static/js/",
-      css_path: "static/css/",
-      media_path: "static/media/",
-      compiler_commons: []
-    };
     const deps = Object.keys(preset.plugins);
     deps.forEach(dep => {
       pkg.devDependencies[dep] = preset.plugins[dep].version || "latest";
@@ -67,22 +61,21 @@ module.exports = class Creator extends EventEmitter {
         preset.configFile.reduce((p, n) => p + n, "")
       );
     }
-    preset.cbs.forEach(cb => cb(config, process.cwd() + "/" + this.name));
     if (!content.match(/\/\/ @rf-cli-config/)) {
       return false;
     }
     content = content.replace(
       /\/\/ @rf-cli-config/gm,
-      `config: ${JSON.stringify(config)},`
+      `config: ${JSON.stringify(preset.config)},`
     );
     if (!content.match(/\/\/ @rf-cli-import/)) {
       return false;
     }
     content = content.replace(
       /\/\/ @rf-cli-import/gm,
-      preset.imp.reduce((p, n) => p + n + "\n", "")
+      uniq(preset.imp).reduce((p, n) => p + n + "\n", "")
     );
-    console.log(content);
+    preset.cbs.forEach(cb => cb());
 
     // overrides file
     const tempPkg = require(rfTemp + "/package.json");
@@ -105,8 +98,16 @@ module.exports = class Creator extends EventEmitter {
     await clearConsole();
     const promptQueue = new Queue(this.injectedPrompts);
     let preset = {
-      configFile: [], // .rf.js compiling content
-      imp: [],
+      configFile: [], // .rf.js compiling content(@rf-cli-complete-begin~end)
+      imp: [], // .rf.js compiling content(@rf-cli-import)
+      config: {
+        html: {},
+        public_path: "/",
+        js_path: "static/js/",
+        css_path: "static/css/",
+        media_path: "static/media/",
+        compiler_commons: []
+      }, // .rf.js compiling content(@rf-cli-config)
       plugins: [], // pkg dependencies/devDependencies fields
       pkgFields: {}, // pkg all fields
       cbs: []
@@ -144,7 +145,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async generatorTemplate(temp) {
-    const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
+    const bool = true; //await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
         console.log(chalk.cyan("now, generator template form rf-template."));

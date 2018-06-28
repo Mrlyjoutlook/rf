@@ -14,7 +14,7 @@
       }
     },
     "build": {
-      "command": "rf-scripts start",
+      "command": "rf-scripts build",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "production"

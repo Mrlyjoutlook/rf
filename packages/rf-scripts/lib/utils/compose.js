@@ -1,4 +1,4 @@
-module.exports = env => (...funcs) => {
+module.exports = (env, base) => (...funcs) => {
   if (funcs.length === 0) {
     return arg => arg;
   }
@@ -7,5 +7,5 @@ module.exports = env => (...funcs) => {
     return funcs[0];
   }
 
-  return funcs.reduce((a, b) => config => a(b(config, env), env));
+  return funcs.reduce((a, b) => config => a(b(config, env, base), env, base));
 };

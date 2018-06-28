@@ -13,12 +13,19 @@
   - [x] less
   - [ ] sass
 - features
-  - [x] webpack dll optimization
-  - [ ] rem
-  - [ ] vw
+  - [x] webpack dll optimize
+  - [x] webpack commons code split optimize
   - [ ] service work
-  - [ ] multi-page
+  - [x] multi-page
   - [ ] preload
+  - mobileAdaptae
+    - [ ] rem
+    - [ ] vw
+  - tools
+    - [ ] vconsole
+    - [ ] bundleBuddy
+    - [ ] bundleAnalyzer
+    - [ ] lodashJS
 
 ## License
 

@@ -13,7 +13,7 @@ const scriptIndex = args.findIndex(x => x === "build" || x === "start");
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
-async function run() {
+async function run(script) {
   let result = true;
   if (config.compiler_vendors) {
     result = await checkDll();
@@ -52,7 +52,7 @@ clearConsole();
 switch (script) {
   case "build":
   case "start": {
-    run();
+    run(script);
     break;
   }
   case "dll": {
