@@ -19,12 +19,19 @@ module.exports = cli => {
       preset.configFile.push(`
         // webpack optimize commons code split
         if (env === "production") {
-          config.entry["commons"] = base.compiler_commons;
-          config.output["chunkFilename"] = '[name].[chunkhash:8].chunk.js';
+          if (Array.isArray(config.entry)) {
+            const arr = [...config.entry];
+            config.entry = {
+              index: arr,
+              commons: base.compiler_commons
+            };
+          } else {
+            config.entry["commons"] = base.compiler_commons;
+          }
           config.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({
-              names: ['commons', 'manifest'],
-              minChunks: Infinity,
+              names: ["commons", "manifest"],
+              minChunks: Infinity
             })
           );
         }

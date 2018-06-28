@@ -13,8 +13,8 @@ function getPromptModules() {
     "promptPackageManager",
     "promptCss",
     "promptDll",
-    "promptCommonsSplit",
-    "promptMultiPage"
+    "promptMultiPage",
+    "promptCommonsSplit"
     // "promptAdaptae"
   ].map(file => require(`../lib/promptModules/${file}`));
 }

@@ -1,3 +1,7 @@
+const fs = require("fs-extra");
+const path = require("path");
+const { app_lib } = require("../env/local-path");
+
 module.exports = cli => {
   cli.injectPrompt({
     type: "features",
@@ -13,12 +17,20 @@ module.exports = cli => {
   });
   cli.onPromptComplete((answers, preset) => {
     if (answers.features.includes("page")) {
-      // preset.imp.push("const webpack = require('webpack')");
-      // preset.config["compiler_commons"] = [];
+      preset.imp.push("const getEntry = require('./lib/getEntry')");
       preset.configFile.push(`
-        // webpack optimize commons code split
+        // multi page
         config.plugins.splice(1,1);
+        getEntry().forEach(item => {
+          config.entry[item]
+        });
       `);
+      preset.cbs.push(() => {
+        fs.copyFileSync(
+          path.resolve(__dirname, "../utils/getEntry.js"),
+          app_lib + "/getEntry.js"
+        );
+      });
     }
   });
 };

@@ -3,7 +3,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 const spawn = require("cross-spawn");
-const checkDll = require("../lib/checkDll");
 const { configOverrides } = require("../lib/env/paths");
 const clearConsole = require("../lib/utils/clearConsole");
 const { config } = require(configOverrides);
@@ -16,6 +15,7 @@ const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 async function run(script) {
   let result = true;
   if (config.compiler_vendors) {
+    const checkDll = require("../lib/checkDll");
     result = await checkDll();
   }
   if (result) {
