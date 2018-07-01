@@ -30,8 +30,9 @@ const modulePath = path.join(
 const paths = require(modulePath + "/config/paths.js");
 
 // work dir or file path
-const projectDirAllPaths = fs
-  .readdirSync(projectDir)
+const projectDirAllPaths = {};
+
+fs.readdirSync(projectDir)
   .filter(
     item =>
       ![
@@ -44,18 +45,31 @@ const projectDirAllPaths = fs
         "yarn.lock",
         "README.md",
         ".idea",
+        ".vscode",
         ".rf.js"
       ].includes(item)
   )
-  .reduce((pre, cur) => {
-    if (cur.includes(".")) {
-      const name = cur.split(".");
-      pre[`app_${name[0]}`] = resolveApp("/" + cur);
+  .forEach(item => {
+    if (item.includes(".")) {
+      const name = item.split(".");
+      projectDirAllPaths[
+        `app_${name[0]}${name[name.length - 1].toUpperCase()}`
+      ] = resolveApp("/" + item);
     } else {
-      pre[`app_${cur}`] = resolveApp("/" + cur);
+      fs.readdirSync(projectDir + "/" + item).forEach(child => {
+        if (child.includes(".")) {
+          const name = child.split(".");
+          projectDirAllPaths[
+            `app_${name[0]}${name[name.length - 1].toUpperCase()}`
+          ] = resolveApp(`/${item}/` + child);
+        } else {
+          projectDirAllPaths[`app_${item}_${child}`] = resolveApp(
+            `/${item}/` + child
+          );
+        }
+      });
     }
-    return pre;
-  }, {});
+  });
 
 module.exports = Object.assign(
   {

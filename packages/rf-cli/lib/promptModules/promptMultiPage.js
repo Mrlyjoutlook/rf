@@ -17,7 +17,12 @@ module.exports = cli => {
   });
   cli.onPromptComplete((answers, preset) => {
     if (answers.features.includes("page")) {
-      preset.imp.push("const getEntry = require('./lib/getEntry')");
+      preset.imp.push(
+        ...[
+          "const getEntry = require('./lib/getEntry');",
+          "const HtmlWebpackPlugin = require('html-webpack-plugin');"
+        ]
+      );
       preset.configFile.push(`
         // multi page
         config.plugins.splice(1,1);
