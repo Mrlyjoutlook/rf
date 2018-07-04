@@ -25,10 +25,45 @@ module.exports = cli => {
       );
       preset.configFile.push(`
         // multi page
-        config.plugins.splice(1,1);
+        config.plugins.splice(1, 1);
+        const arr = [...config.entry];
+        config.entry = {};
         getEntry().forEach(item => {
-          config.entry[item]
-        });
+          // Keep the commons keyword for webpack variable commons code split
+          if (item !== "commons") {
+          // arr[0] is create-react-app polyfills file
+          config.entry[item] = [arr[0], paths.appSrc + "/" + item + ".js"];
+          config.plugins.push(
+            new HtmlWebpackPlugin(
+              Object.assign(
+                {},
+                {
+                  inject: true,
+                  filename: item + ".html",
+                  template: paths.appPublic + "/" + item + ".html",
+                  chunks: [item, "commons", "manifest"]
+                },
+                env === "development"
+                  ? {
+                    minify: {
+                      removeComments: true,
+                      collapseWhitespace: true,
+                      removeRedundantAttributes: true,
+                      useShortDoctype: true,
+                      removeEmptyAttributes: true,
+                      removeStyleLinkTypeAttributes: true,
+                      keepClosingSlash: true,
+                      minifyJS: true,
+                      minifyCSS: true,
+                      minifyURLs: true
+                    }
+                  }
+                : {}
+              )
+            )
+          );
+        }
+      });
       `);
       preset.cbs.push(() => {
         fs.copyFileSync(
