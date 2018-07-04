@@ -9,7 +9,7 @@ const prettier = require("prettier");
 const { merge, assign } = require("lodash/object");
 const { uniq } = require("lodash/array");
 const LoadPrompt = require("./LoadPrompt");
-// const fetchRemoteTemplate = require("./fetchRemoteTemplate");
+const fetchRemoteTemplate = require("./fetchRemoteTemplate");
 const clearConsole = require("./utils/clearConsole");
 const writeFileTree = require("./utils/writeFileTree");
 const Queue = require("./utils/queue");
@@ -105,8 +105,7 @@ module.exports = class Creator extends EventEmitter {
         public_path: "/",
         js_path: "static/js/",
         css_path: "static/css/",
-        media_path: "static/media/",
-        compiler_commons: []
+        media_path: "static/media/"
       }, // .rf.js compiling content(@rf-cli-config)
       plugins: [], // pkg dependencies/devDependencies fields
       pkgFields: {}, // pkg all fields
@@ -145,7 +144,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async generatorTemplate(temp) {
-    const bool = true; //await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
+    const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
         console.log(chalk.cyan("now, generator template form rf-template."));

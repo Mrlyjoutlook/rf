@@ -1,6 +1,6 @@
 # rf-cli
 
-> rf-cli 是一个创建react应用的脚手架，基于create-react-app的开发体验上做一层config修改 
+> rf-cli 是一个创建 react 应用的脚手架，基于 create-react-app 的开发体验上做一层 config 修改
 
 ## Create an React App
 
@@ -14,8 +14,6 @@ $ npm satrt
 ```
 
 _(you also can use yarn)_
-
-
 
 ## User Guide
 
