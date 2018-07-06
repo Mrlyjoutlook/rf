@@ -5,6 +5,8 @@ module.exports = config => {
   eslintLoader.use[0].options.ignore = true;
   // default open .babelrc
   let babelLoad = config.module.rules[1]["oneOf"][1];
-  babelLoad.options.babelrc = true;
+  babelLoad.options = {
+    compact: true
+  };
   return config;
 };

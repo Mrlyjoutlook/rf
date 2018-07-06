@@ -30,7 +30,7 @@ module.exports = class Creator extends EventEmitter {
     const { answers, preset } = await this.prompt();
     const { context, name } = this;
     await this.generatorTemplate(answers.base.template);
-    // generate package.json with plugin dependencies
+    // edit package.json
     const pkg = assign(
       {
         name,
@@ -50,7 +50,9 @@ module.exports = class Creator extends EventEmitter {
       ][dep] =
         preset.plugins[dep].version || "latest";
     });
-    console.log(pkg);
+
+    // edit .babelrc
+    const babel = {};
 
     // edit rf.js file content according to answers
     let content = fs.readFileSync(
@@ -83,17 +85,18 @@ module.exports = class Creator extends EventEmitter {
       /\/\/ @rf-cli-import/gm,
       uniq(preset.imp).reduce((p, n) => p + n + "\n", "")
     );
+    // callback
     preset.cbs.forEach(cb => cb());
-
-    // overrides file
+    // generator file content
     const tempPkg = require(rfTemp + "/package.json");
     content = prettier.format(content, {
       parser: "babylon",
       trailingComma: "es5"
     });
-
+    // overrides file
     await writeFileTree(context, {
       ".rf.js": content,
+      ".babelrc": JSON.stringify(babel, null, 2),
       "package.json": JSON.stringify(merge(tempPkg, pkg), null, 2)
     });
     // add features
@@ -116,8 +119,9 @@ module.exports = class Creator extends EventEmitter {
         media_path: "static/media/"
       }, // .rf.js compiling content(@rf-cli-config)
       plugins: [], // pkg dependencies/devDependencies fields
-      pkgFields: {}, // pkg all fields
-      cbs: []
+      pkgFields: {}, // pkg expand fields
+      babel: {},
+      cbs: [] // end operate
     };
     const answers = {
       base: {},
