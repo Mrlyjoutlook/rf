@@ -6,8 +6,8 @@
 
 - generator template
   - [x] default use create-react-app template
-  - [ ] mobx
-  - [ ] redux
+  - [x] mobx
+  - [x] redux
 - css
   - [x] postcss, default
   - [x] less

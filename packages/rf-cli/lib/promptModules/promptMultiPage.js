@@ -66,6 +66,9 @@ module.exports = cli => {
       });
       `);
       preset.cbs.push(() => {
+        if (!fs.existsSync(app_lib)) {
+          fs.mkdirpSync(app_lib);
+        }
         fs.copyFileSync(
           path.resolve(__dirname, "../utils/getEntry.js"),
           app_lib + "/getEntry.js"

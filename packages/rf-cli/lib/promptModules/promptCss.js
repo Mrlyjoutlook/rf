@@ -31,9 +31,11 @@ module.exports = cli => {
         }
       `);
       preset.plugins["less"] = {
+        depend: "dev",
         version: "^3.0.4"
       };
       preset.plugins["less-loader"] = {
+        depend: "dev",
         version: "^4.1.0"
       };
     }

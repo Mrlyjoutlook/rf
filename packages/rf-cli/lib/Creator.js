@@ -9,7 +9,7 @@ const prettier = require("prettier");
 const { merge, assign } = require("lodash/object");
 const { uniq } = require("lodash/array");
 const LoadPrompt = require("./LoadPrompt");
-const fetchRemoteTemplate = require("./fetchRemoteTemplate");
+// const fetchRemoteTemplate = require("./fetchRemoteTemplate");
 const clearConsole = require("./utils/clearConsole");
 const writeFileTree = require("./utils/writeFileTree");
 const Queue = require("./utils/queue");
@@ -36,14 +36,22 @@ module.exports = class Creator extends EventEmitter {
         name,
         version: "0.1.0",
         private: true,
-        devDependencies: {}
+        devDependencies: {},
+        dependencies: {}
       },
       preset.pkgFields
     );
     const deps = Object.keys(preset.plugins);
     deps.forEach(dep => {
-      pkg.devDependencies[dep] = preset.plugins[dep].version || "latest";
+      pkg[
+        preset.plugins[dep].depend === "dep"
+          ? "dependencies"
+          : "devDependencies"
+      ][dep] =
+        preset.plugins[dep].version || "latest";
     });
+    console.log(pkg);
+
     // edit rf.js file content according to answers
     let content = fs.readFileSync(
       process.cwd() + "/" + name + "/.rf.js",
@@ -144,7 +152,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async generatorTemplate(temp) {
-    const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
+    const bool = true; // await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
         console.log(chalk.cyan("now, generator template form rf-template."));
