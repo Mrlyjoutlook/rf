@@ -1,6 +1,4 @@
-import { observable, action, computed, useStrict } from "mobx";
-
-useStrict(true);
+import { observable, action, computed } from "mobx";
 
 class TodoStore {
   constructor(rootStore) {

@@ -8,7 +8,7 @@ module.exports = {
     vendor: config.compiler_vendors
   },
   output: {
-    path: paths.app_public,
+    path: paths.appPublic,
     filename: config.js_path + "[name].[chunkhash:8].dll.js",
     library: "[name]_library"
   },

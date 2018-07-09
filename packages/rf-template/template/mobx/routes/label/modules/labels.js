@@ -1,6 +1,4 @@
-import { observable, action, useStrict } from "mobx";
-
-useStrict(true);
+import { observable, action } from "mobx";
 
 class LabelsStore {
   constructor(rootStore) {

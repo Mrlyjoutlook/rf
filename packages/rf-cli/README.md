@@ -27,6 +27,11 @@
     - [ ] bundleAnalyzer
     - [ ] lodashJS
 
+## Plans add features
+
+- features
+  - [] skeleton page
+
 ## License
 
 [MIT]()

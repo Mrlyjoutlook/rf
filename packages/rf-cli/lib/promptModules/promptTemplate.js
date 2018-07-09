@@ -51,11 +51,22 @@ module.exports = cli => {
         depend: "dep",
         version: "^5.2.3"
       };
+      preset.babel.push({
+        plugins: ["transform-decorators-legacy"]
+      });
     }
     if (answers.base.template === "redux") {
-      preset.plugins["less-loader"] = {
-        depend: "dev",
-        version: "^4.1.0"
+      preset.plugins["redux"] = {
+        depend: "dep",
+        version: "^4.0.0"
+      };
+      preset.plugins["react-redux"] = {
+        depend: "dep",
+        version: "^5.0.7"
+      };
+      preset.plugins["redux-thunk"] = {
+        depend: "dep",
+        version: "^2.3.0"
       };
     }
   });

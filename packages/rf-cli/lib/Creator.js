@@ -1,4 +1,3 @@
-const EventEmitter = require("events").EventEmitter;
 const execa = require("execa");
 const chalk = require("chalk");
 const debug = require("debug");
@@ -15,9 +14,8 @@ const writeFileTree = require("./utils/writeFileTree");
 const Queue = require("./utils/queue");
 const { tmpRfTemplate, rfTemp } = require("./env/local-path");
 
-module.exports = class Creator extends EventEmitter {
+module.exports = class Creator {
   constructor(name, context, promptModules) {
-    super();
     this.name = name;
     this.context = context;
     this.injectedPrompts = []; // 添加功能
@@ -52,7 +50,12 @@ module.exports = class Creator extends EventEmitter {
     });
 
     // edit .babelrc
-    const babel = {};
+    let babel = {
+      presets: ["react-app"]
+    };
+    preset.babel.forEach(item => {
+      babel = merge(babel, item);
+    });
 
     // edit rf.js file content according to answers
     let content = fs.readFileSync(
@@ -120,7 +123,7 @@ module.exports = class Creator extends EventEmitter {
       }, // .rf.js compiling content(@rf-cli-config)
       plugins: [], // pkg dependencies/devDependencies fields
       pkgFields: {}, // pkg expand fields
-      babel: {},
+      babel: [],
       cbs: [] // end operate
     };
     const answers = {
@@ -156,7 +159,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   async generatorTemplate(temp) {
-    const bool = true; // await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
+    const bool = true; //await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
         console.log(chalk.cyan("now, generator template form rf-template."));
