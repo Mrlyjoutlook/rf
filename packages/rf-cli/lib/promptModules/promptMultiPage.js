@@ -1,26 +1,26 @@
-const fs = require("fs-extra");
-const path = require("path");
-const { app_lib } = require("../env/local-path");
+const fs = require('fs-extra');
+const path = require('path');
+const { app_lib } = require('../env/local-path');
 
 module.exports = cli => {
   cli.injectPrompt({
-    type: "features",
+    type: 'features',
     prompt: {
-      type: "confirm",
-      name: "value",
-      message: "Do you use dev multi page(html)?",
+      type: 'confirm',
+      name: 'value',
+      message: 'Do you use dev multi page(html)?',
       format: answer => {
-        return answer ? "page" : false;
+        return answer ? 'page' : false;
       },
-      initial: false
-    }
+      initial: false,
+    },
   });
   cli.onPromptComplete((answers, preset) => {
-    if (answers.features.includes("page")) {
+    if (answers.features.includes('page')) {
       preset.imp.push(
         ...[
           "const getEntry = require('./lib/getEntry');",
-          "const HtmlWebpackPlugin = require('html-webpack-plugin');"
+          "const HtmlWebpackPlugin = require('html-webpack-plugin');",
         ]
       );
       preset.configFile.push(`
@@ -70,8 +70,8 @@ module.exports = cli => {
           fs.mkdirpSync(app_lib);
         }
         fs.copyFileSync(
-          path.resolve(__dirname, "../utils/getEntry.js"),
-          app_lib + "/getEntry.js"
+          path.resolve(__dirname, '../utils/getEntry.js'),
+          app_lib + '/getEntry.js'
         );
       });
     }

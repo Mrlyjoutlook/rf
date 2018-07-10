@@ -1,6 +1,6 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import Loadable from "react-loadable";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Loadable from 'react-loadable';
 
 export default function PersonalRoute(props) {
   return (
@@ -9,7 +9,7 @@ export default function PersonalRoute(props) {
       component={Loadable.Map({
         loader: {
           Todo: () =>
-            import(/* webpackChunkName: "todo" */ "./components/TodoContainer")
+            import(/* webpackChunkName: "todo" */ './components/TodoContainer'),
         },
         render(loaded) {
           const Todo = loaded.Todo.default;
@@ -18,7 +18,7 @@ export default function PersonalRoute(props) {
         loading() {
           return <div>Loading...</div>;
         },
-        delay: 300
+        delay: 300,
       })}
     />
   );

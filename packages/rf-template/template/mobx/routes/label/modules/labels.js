@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action } from 'mobx';
 
 class LabelsStore {
   constructor(rootStore) {
@@ -11,7 +11,7 @@ class LabelsStore {
   addLabel(name) {
     this.labels.push({
       time: new Date().getTime(),
-      name
+      name,
     });
   }
 }

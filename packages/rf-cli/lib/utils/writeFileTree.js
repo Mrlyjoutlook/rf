@@ -1,5 +1,5 @@
-const fs = require("fs-extra");
-const path = require("path");
+const fs = require('fs-extra');
+const path = require('path');
 
 function deleteRemovedFiles(directory, newFiles, previousFiles) {
   // get all files that are not in the new filesystem and are still existing

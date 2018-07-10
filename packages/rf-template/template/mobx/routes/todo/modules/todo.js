@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed } from 'mobx';
 
 class TodoStore {
   constructor(rootStore) {
@@ -23,7 +23,7 @@ class TodoStore {
       key: new Date().getTime(),
       label: this.currentLabel,
       text,
-      status: false
+      status: false,
     });
   }
 

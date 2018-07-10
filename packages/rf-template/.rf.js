@@ -9,5 +9,5 @@ module.exports = {
   },
   devServer: (config, env, base, paths) => {
     return config;
-  }
+  },
 };

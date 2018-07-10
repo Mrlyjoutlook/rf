@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { observer, inject, PropTypes } from "mobx-react";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { observer, inject, PropTypes } from 'mobx-react';
+import { withRouter } from 'react-router-dom';
 // import { object } from 'prop-types';
-import "./index.less";
+import './index.less';
 
-@inject("labelsStore")
+@inject('labelsStore')
 @observer
 class LabelsContainer extends Component {
   static propTypes = {
-    labelsStore: PropTypes.observableObject.isRequired
+    labelsStore: PropTypes.observableObject.isRequired,
   };
 
   handleClick = () => {
@@ -18,7 +18,7 @@ class LabelsContainer extends Component {
 
   goTodo = () => {
     const { history } = this.props;
-    history.push("/todo");
+    history.push('/todo');
   };
 
   render() {

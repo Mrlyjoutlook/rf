@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // import { object } from 'prop-types';
-import { observer, inject, PropTypes } from "mobx-react";
-import "./index.less";
+import { observer, inject, PropTypes } from 'mobx-react';
+import './index.less';
 
-@inject("labelsStore")
-@inject("todoStore")
+@inject('labelsStore')
+@inject('todoStore')
 @observer
 class TodoContainer extends Component {
   static propTypes = {
     todoStore: PropTypes.observableObject.isRequired,
-    labelsStore: PropTypes.observableObject.isRequired
+    labelsStore: PropTypes.observableObject.isRequired,
   };
 
   handleClick = () => {
@@ -76,7 +76,7 @@ class TodoContainer extends Component {
               <li key={item.key}>
                 <div
                   style={{
-                    textDecoration: item.status ? "line-through" : "none"
+                    textDecoration: item.status ? 'line-through' : 'none',
                   }}
                 >
                   {item.text}

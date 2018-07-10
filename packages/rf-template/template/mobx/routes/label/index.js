@@ -1,6 +1,6 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import Loadable from "react-loadable";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Loadable from 'react-loadable';
 
 export default function LabelRoute(props) {
   return (
@@ -9,7 +9,7 @@ export default function LabelRoute(props) {
       component={Loadable.Map({
         loader: {
           Labels: () =>
-            import(/* webpackChunkName: "label" */ "./components/LabelsContainer")
+            import(/* webpackChunkName: "label" */ './components/LabelsContainer'),
         },
         render(loaded) {
           const Labels = loaded.Labels.default;
@@ -18,7 +18,7 @@ export default function LabelRoute(props) {
         loading() {
           return <div>Loading...</div>;
         },
-        delay: 300
+        delay: 300,
       })}
     />
   );

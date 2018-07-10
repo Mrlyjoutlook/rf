@@ -1,18 +1,18 @@
-const execa = require("execa");
-const chalk = require("chalk");
-const debug = require("debug");
-const prompts = require("prompts");
-const fs = require("fs-extra");
-const path = require("path");
-const prettier = require("prettier");
-const { merge, assign } = require("lodash/object");
-const { uniq } = require("lodash/array");
-const LoadPrompt = require("./LoadPrompt");
-const fetchRemoteTemplate = require("./fetchRemoteTemplate");
-const clearConsole = require("./utils/clearConsole");
-const writeFileTree = require("./utils/writeFileTree");
-const Queue = require("./utils/queue");
-const { tmpRfTemplate, rfTemp } = require("./env/local-path");
+const execa = require('execa');
+const chalk = require('chalk');
+const debug = require('debug');
+const prompts = require('prompts');
+const fs = require('fs-extra');
+const path = require('path');
+const prettier = require('prettier');
+const { merge, assign } = require('lodash/object');
+const { uniq } = require('lodash/array');
+const LoadPrompt = require('./LoadPrompt');
+const fetchRemoteTemplate = require('./fetchRemoteTemplate');
+const clearConsole = require('./utils/clearConsole');
+const writeFileTree = require('./utils/writeFileTree');
+const Queue = require('./utils/queue');
+const { tmpRfTemplate, rfTemp } = require('./env/local-path');
 
 module.exports = class Creator {
   constructor(name, context, promptModules) {
@@ -32,26 +32,26 @@ module.exports = class Creator {
     const pkg = assign(
       {
         name,
-        version: "0.1.0",
+        version: '0.1.0',
         private: true,
         devDependencies: {},
-        dependencies: {}
+        dependencies: {},
       },
       preset.pkgFields
     );
     const deps = Object.keys(preset.plugins);
     deps.forEach(dep => {
       pkg[
-        preset.plugins[dep].depend === "dep"
-          ? "dependencies"
-          : "devDependencies"
+        preset.plugins[dep].depend === 'dep'
+          ? 'dependencies'
+          : 'devDependencies'
       ][dep] =
-        preset.plugins[dep].version || "latest";
+        preset.plugins[dep].version || 'latest';
     });
 
     // edit .babelrc
     let babel = {
-      presets: ["react-app"]
+      presets: ['react-app'],
     };
     preset.babel.forEach(item => {
       babel = merge(babel, item);
@@ -59,8 +59,8 @@ module.exports = class Creator {
 
     // edit rf.js file content according to answers
     let content = fs.readFileSync(
-      process.cwd() + "/" + name + "/.rf.js",
-      "utf8"
+      process.cwd() + '/' + name + '/.rf.js',
+      'utf8'
     );
     if (
       !content.match(/\/\/ @rf-cli-complete-begin/) ||
@@ -71,7 +71,7 @@ module.exports = class Creator {
     if (preset.configFile.length !== 0) {
       content = content.replace(
         /\/\/ @rf-cli-complete-begin([\s\S]*?)\/\/ @rf-cli-complete-end/gm,
-        preset.configFile.reduce((p, n) => p + n, "")
+        preset.configFile.reduce((p, n) => p + n, '')
       );
     }
     if (!content.match(/\/\/ @rf-cli-config/)) {
@@ -86,25 +86,25 @@ module.exports = class Creator {
     }
     content = content.replace(
       /\/\/ @rf-cli-import/gm,
-      uniq(preset.imp).reduce((p, n) => p + n + "\n", "")
+      uniq(preset.imp).reduce((p, n) => p + n + '\n', '')
     );
     // callback
     preset.cbs.forEach(cb => cb());
     // generator file content
-    const tempPkg = require(rfTemp + "/package.json");
+    const tempPkg = require(rfTemp + '/package.json');
     content = prettier.format(content, {
-      parser: "babylon",
-      trailingComma: "es5"
+      parser: 'babylon',
+      trailingComma: 'es5',
     });
     // overrides file
     await writeFileTree(context, {
-      ".rf.js": content,
-      ".babelrc": JSON.stringify(babel, null, 2),
-      "package.json": JSON.stringify(merge(tempPkg, pkg), null, 2)
+      '.rf.js': content,
+      '.babelrc': JSON.stringify(babel, null, 2),
+      'package.json': JSON.stringify(merge(tempPkg, pkg), null, 2),
     });
     // add features
-    console.log(chalk.green("build OK!"));
-    console.log(chalk.green("run your project!"));
+    console.log(chalk.green('build OK!'));
+    console.log(chalk.green('run your project!'));
   }
 
   // 提示选项
@@ -116,30 +116,30 @@ module.exports = class Creator {
       imp: [], // .rf.js compiling content(@rf-cli-import)
       config: {
         html: {},
-        public_path: "/",
-        js_path: "static/js/",
-        css_path: "static/css/",
-        media_path: "static/media/"
+        public_path: '/',
+        js_path: 'static/js/',
+        css_path: 'static/css/',
+        media_path: 'static/media/',
       }, // .rf.js compiling content(@rf-cli-config)
       plugins: [], // pkg dependencies/devDependencies fields
       pkgFields: {}, // pkg expand fields
       babel: [],
-      cbs: [] // end operate
+      cbs: [], // end operate
     };
     const answers = {
       base: {},
       complete: [],
-      features: []
+      features: [],
     };
     const num = promptQueue.size();
     for (let i = 0; i < num; i++) {
       const p = promptQueue.shift();
       const result = await prompts(p.prompt);
-      if (p.type === "complete") {
+      if (p.type === 'complete') {
         Array.isArray(result.value)
           ? answers.complete.push(...result.value)
           : answers.complete.push(result.value);
-      } else if (p.type === "features") {
+      } else if (p.type === 'features') {
         if (result.value) {
           answers.features.push(result.value);
         }
@@ -149,12 +149,12 @@ module.exports = class Creator {
     }
     this.promptCompleteCbs.forEach(cb => cb(answers, preset));
 
-    debug("rf-cli:answers")(answers);
-    debug("rf-cli:preset")(preset);
+    debug('rf-cli:answers')(answers);
+    debug('rf-cli:preset')(preset);
 
     return {
       answers,
-      preset
+      preset,
     };
   }
 
@@ -162,19 +162,19 @@ module.exports = class Creator {
     const bool = await fetchRemoteTemplate(fs.existsSync(tmpRfTemplate));
     if (bool) {
       try {
-        console.log(chalk.cyan("now, generator template form rf-template."));
+        console.log(chalk.cyan('now, generator template form rf-template.'));
         await fs.copySync(
-          path.join(tmpRfTemplate, "/packages/rf-template"),
-          process.cwd() + "/" + this.name
+          path.join(tmpRfTemplate, '/packages/rf-template'),
+          process.cwd() + '/' + this.name
         );
         await fs.move(
-          process.cwd() + "/" + this.name + "/template/" + temp,
-          process.cwd() + "/" + this.name + "/src",
+          process.cwd() + '/' + this.name + '/template/' + temp,
+          process.cwd() + '/' + this.name + '/src',
           { overwrite: true }
         );
-        await fs.remove(process.cwd() + "/" + this.name + "/template");
+        await fs.remove(process.cwd() + '/' + this.name + '/template');
       } catch (error) {
-        console.log(chalk.red("generator template fail", error));
+        console.log(chalk.red('generator template fail', error));
         throw error;
       }
     }

@@ -2,15 +2,15 @@
  * 需要搭配bundle-loader插件
  */
 
-import React from "react";
-import { isEqual } from "lodash";
+import React from 'react';
+import { isEqual } from 'lodash';
 
 class Bundle extends React.Component {
   constructor() {
     super();
     this.state = {
       isLoaded: false,
-      result: {}
+      result: {},
     };
   }
 
@@ -34,7 +34,7 @@ class Bundle extends React.Component {
 
   load = () => {
     this.setState({
-      isLoaded: false
+      isLoaded: false,
     });
 
     const { modules } = this.props;
@@ -72,7 +72,7 @@ export const bundleComponent = loadComponent =>
     constructor() {
       super();
       this.state = {
-        Component: null
+        Component: null,
       };
     }
 

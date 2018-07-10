@@ -1,15 +1,15 @@
 module.exports = cli => {
   cli.injectPrompt({
-    type: "packageManager",
+    type: 'packageManager',
     prompt: {
-      type: "select",
-      name: "value",
-      message: "Select a package manager",
+      type: 'select',
+      name: 'value',
+      message: 'Select a package manager',
       choices: [
-        { title: "yarn", value: "yarn" },
-        { title: "npm", value: "npm" }
+        { title: 'yarn', value: 'yarn' },
+        { title: 'npm', value: 'npm' },
       ],
-      initial: 0
-    }
+      initial: 0,
+    },
   });
 };

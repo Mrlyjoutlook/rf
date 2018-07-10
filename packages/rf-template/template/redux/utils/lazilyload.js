@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class LazilyLoad extends React.Component {
   constructor() {
     super();
     this.state = {
-      isLoaded: false
+      isLoaded: false,
     };
   }
 
@@ -29,7 +29,7 @@ class LazilyLoad extends React.Component {
 
   load() {
     this.setState({
-      isLoaded: false
+      isLoaded: false,
     });
 
     const { modules } = this.props;
@@ -43,19 +43,23 @@ class LazilyLoad extends React.Component {
         }, {})
       )
       .then(result => {
-        if (!this._isMounted) return null;
+        if (!this._isMounted) {
+          return null;
+        }
         this.setState({ modules: result, isLoaded: true });
       });
   }
 
   render() {
-    if (!this.state.isLoaded) return null;
+    if (!this.state.isLoaded) {
+      return null;
+    }
     return React.Children.only(this.props.children(this.state.modules));
   }
 }
 
 LazilyLoad.propTypes = {
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
 };
 
 export const LazilyLoadFactory = (Component, modules) => {
@@ -71,11 +75,13 @@ export const LazilyLoadFactory = (Component, modules) => {
 export const lazilyLoadComponent = loadComponent =>
   class LazilyLoadComponent extends React.Component {
     state = {
-      Component: null
+      Component: null,
     };
 
     componentWillMount() {
-      if (this.hasLoadedComponent()) return;
+      if (this.hasLoadedComponent()) {
+        return;
+      }
 
       loadComponent()
         .then(module => module.default)

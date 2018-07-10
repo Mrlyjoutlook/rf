@@ -1,5 +1,5 @@
-import React, { PureComponent } from "react";
-import "./index.less";
+import React, { PureComponent } from 'react';
+import './index.less';
 
 class Footer extends PureComponent {
   render() {

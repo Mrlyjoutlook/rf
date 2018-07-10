@@ -1,36 +1,36 @@
-const { projectDir, app_dll_dllManifestJson } = require("../env/local-path");
+const { projectDir, app_dll_dllManifestJson } = require('../env/local-path');
 
 module.exports = cli => {
   cli.injectPrompt({
-    type: "features",
+    type: 'features',
     prompt: {
-      type: "confirm",
-      name: "value",
-      message: "Do you use webpack optimize dll?",
+      type: 'confirm',
+      name: 'value',
+      message: 'Do you use webpack optimize dll?',
       format: answer => {
-        return answer ? "dll" : false;
+        return answer ? 'dll' : false;
       },
-      initial: false
-    }
+      initial: false,
+    },
   });
   cli.onPromptComplete((answers, preset) => {
-    if (answers.features.includes("dll")) {
-      if (!preset.pkgFields["scripts"]) {
-        preset.pkgFields["scripts"] = {};
+    if (answers.features.includes('dll')) {
+      if (!preset.pkgFields['scripts']) {
+        preset.pkgFields['scripts'] = {};
       }
-      preset.pkgFields["scripts"]["dll"] = "better-npm-run dll";
-      if (!preset.pkgFields["betterScripts"]) {
-        preset.pkgFields["betterScripts"] = {};
+      preset.pkgFields['scripts']['dll'] = 'better-npm-run dll';
+      if (!preset.pkgFields['betterScripts']) {
+        preset.pkgFields['betterScripts'] = {};
       }
-      preset.pkgFields["betterScripts"]["dll"] = {
-        command: "rf-scripts dll",
+      preset.pkgFields['betterScripts']['dll'] = {
+        command: 'rf-scripts dll',
         env: {
-          DEBUG: "app:*",
-          NODE_ENV: "production"
-        }
+          DEBUG: 'app:*',
+          NODE_ENV: 'production',
+        },
       };
       preset.imp.push("const webpack = require('webpack')");
-      preset.config["compiler_vendors"] = [];
+      preset.config['compiler_vendors'] = [];
       preset.configFile.push(`
         // webpack optimize dll
         config.plugins.push(

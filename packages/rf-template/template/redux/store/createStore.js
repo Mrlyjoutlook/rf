@@ -1,6 +1,6 @@
-import { applyMiddleware, compose, createStore } from "redux";
-import thunk from "redux-thunk";
-import makeRootReducer from "./reducers";
+import { applyMiddleware, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import makeRootReducer from './reducers';
 
 export default (initialState = {}) => {
   // Middleware Configuration
@@ -21,13 +21,13 @@ export default (initialState = {}) => {
   store.asyncReducers = {};
 
   if (module.hot) {
-    module.hot.accept("./reducers", () => {
-      const reducers = require("./reducers").default;
+    module.hot.accept('./reducers', () => {
+      const reducers = require('./reducers').default;
       store.replaceReducer(reducers(store.asyncReducers));
     });
   }
 
   return {
-    store
+    store,
   };
 };

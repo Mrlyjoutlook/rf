@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import Loadable from "react-loadable";
+import React, { Component } from 'react';
+import Loadable from 'react-loadable';
 // import { object } from 'prop-types';
-import "./index.less";
+import './index.less';
 
 class PersonalContainer extends Component {
   static propTypes = {};
 
   state = {
-    visible: false
+    visible: false,
   };
 
   handleOnClick = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
   };
 
   asyncComponent = () => {
     const OtherInfo = Loadable({
-      loader: () => import(/* webpackChunkName: "otherInfo" */ "../OtherInfo"),
-      loading: () => <div>loading...</div>
+      loader: () => import(/* webpackChunkName: "otherInfo" */ '../OtherInfo'),
+      loading: () => <div>loading...</div>,
     });
     return <OtherInfo />;
   };

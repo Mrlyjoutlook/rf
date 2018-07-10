@@ -1,6 +1,6 @@
-const os = require("os");
-const fs = require("fs");
-const path = require("path");
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
 
 const args = process.argv.slice(2);
 
@@ -18,8 +18,8 @@ const tmp = os.tmpdir();
 
 module.exports = {
   projectDir: resolveApp(args[0]),
-  app_lib: resolveApp(args[0] + "/lib"),
-  app_dll_dllManifestJson: resolveApp(args[0] + "/lib/dll/dll-manifest.json"),
-  tmpRfTemplate: path.join(tmp, "rf-cli"),
-  rfTemp: path.join(tmp, "rf-cli/packages/rf-template")
+  app_lib: resolveApp(args[0] + '/lib'),
+  app_dll_dllManifestJson: resolveApp(args[0] + '/lib/dll/dll-manifest.json'),
+  tmpRfTemplate: path.join(tmp, 'rf-cli'),
+  rfTemp: path.join(tmp, 'rf-cli/packages/rf-template'),
 };

@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import UpData from "./UpData";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import UpData from './UpData';
 
 export default () => {
-  const div = document.createElement("div");
+  const div = document.createElement('div');
   document.body.appendChild(div);
 
   function close() {
@@ -16,6 +16,6 @@ export default () => {
   ReactDOM.render(<UpData close={close} />, div);
 
   return {
-    close
+    close,
   };
 };

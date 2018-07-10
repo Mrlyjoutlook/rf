@@ -1,5 +1,5 @@
-const ora = require("ora");
-const chalk = require("chalk");
+const ora = require('ora');
+const chalk = require('chalk');
 
 const spinner = ora();
 let lastMsg = null;
@@ -7,18 +7,18 @@ let lastMsg = null;
 exports.logWithSpinner = (symbol, msg) => {
   if (!msg) {
     msg = symbol;
-    symbol = chalk.green("✔");
+    symbol = chalk.green('✔');
   }
   if (lastMsg) {
     spinner.stopAndPersist({
       symbol: lastMsg.symbol,
-      text: lastMsg.text
+      text: lastMsg.text,
     });
   }
   spinner.text = msg;
   lastMsg = {
     symbol: symbol,
-    text: msg
+    text: msg,
   };
   spinner.start();
 };
@@ -27,7 +27,7 @@ exports.stopSpinner = persist => {
   if (lastMsg && persist !== false) {
     spinner.stopAndPersist({
       symbol: lastMsg.symbol,
-      text: lastMsg.text
+      text: lastMsg.text,
     });
   } else {
     spinner.stop();

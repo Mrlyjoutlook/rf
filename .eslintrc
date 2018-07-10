@@ -12,6 +12,7 @@
     "ecmaVersion": 6
   },
   "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true, "trailingComma": "es5" }],
     "no-useless-escape": "off",
     "no-console": "off",
     "strict": ["error", "global"],

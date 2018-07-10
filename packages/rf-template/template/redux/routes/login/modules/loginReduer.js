@@ -1,5 +1,5 @@
 const initialState = {
-  status: true
+  status: true,
 };
 
 export default function loginReduer(state = initialState, action) {

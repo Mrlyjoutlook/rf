@@ -1,5 +1,5 @@
-import LabelsStore from "../routes/label/modules/labels";
-import TodoStore from "../routes/todo/modules/todo";
+import LabelsStore from '../routes/label/modules/labels';
+import TodoStore from '../routes/todo/modules/todo';
 
 class Store {
   constructor() {
