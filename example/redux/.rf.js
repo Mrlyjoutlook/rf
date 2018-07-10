@@ -9,8 +9,8 @@ module.exports = {
     js_path: "static/js/",
     css_path: "static/css/",
     media_path: "static/media/",
-    compiler_vendors: [],
-    compiler_commons: []
+    compiler_vendors: ["react", "react-dom"],
+    compiler_commons: ["redux"]
   },
   webpack: (config, env, base, paths) => {
     // less

@@ -56,6 +56,7 @@ module.exports = cli => {
       });
     }
     if (answers.base.template === "redux") {
+      preset.plugins = Object.assign({}, preset.plugins, commons);
       preset.plugins["redux"] = {
         depend: "dep",
         version: "^4.0.0"
