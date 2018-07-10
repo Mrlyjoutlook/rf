@@ -1,21 +1,21 @@
 module.exports = cli => {
   cli.injectPrompt({
-    type: "complete",
+    type: 'complete',
     prompt: {
-      type: "multiselect",
-      name: "value",
-      message: "multi select css tools",
+      type: 'multiselect',
+      name: 'value',
+      message: 'multi select css translater tools',
       choices: [
-        { title: "postcss", value: "postcss", selected: true },
-        { title: "less", value: "less" }
+        { title: 'postcss', value: 'postcss', selected: true },
+        { title: 'less', value: 'less' },
       ],
       initial: 1,
       max: 3,
-      hint: "- Space to select. Return to submit"
-    }
+      hint: '- Space to select. Return to submit',
+    },
   });
   cli.onPromptComplete((answers, preset) => {
-    if (answers.complete.includes("less")) {
+    if (answers.complete.includes('less')) {
       preset.configFile.push(`
         // less
         let cssLoader = config.module.rules[1]["oneOf"][2];
@@ -30,13 +30,13 @@ module.exports = cli => {
           });
         }
       `);
-      preset.plugins["less"] = {
-        depend: "dev",
-        version: "^3.0.4"
+      preset.plugins['less'] = {
+        depend: 'dev',
+        version: '^3.0.4',
       };
-      preset.plugins["less-loader"] = {
-        depend: "dev",
-        version: "^4.1.0"
+      preset.plugins['less-loader'] = {
+        depend: 'dev',
+        version: '^4.1.0',
       };
     }
   });
