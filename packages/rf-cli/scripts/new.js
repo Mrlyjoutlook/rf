@@ -15,6 +15,7 @@ function getPromptModules() {
     'promptDll',
     'promptMultiPage',
     'promptCommonsSplit',
+    'promptTools',
     // "promptAdaptae"
   ].map(file => require(`../lib/promptModules/${file}`));
 }

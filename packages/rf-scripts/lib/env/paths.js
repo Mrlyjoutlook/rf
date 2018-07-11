@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const readDirFilePath = require('../utils/readDirFilePath');
 
 //try to detect if user is using a custom scripts version
 var custom_scripts = false;
@@ -30,46 +31,29 @@ const modulePath = path.join(
 const paths = require(modulePath + '/config/paths.js');
 
 // work dir or file path
-const projectDirAllPaths = {};
+const getProjectPaths = async () => {
+  const projectDirAllPaths = await readDirFilePath(
+    [
+      'node_modules',
+      '.gitignore',
+      '.eslintrc',
+      '.eslintignore',
+      '.editorconfig',
+      '.DS_Store',
+      'yarn.lock',
+      'README.md',
+      '.idea',
+      '.vscode',
+      '.rf.js',
+      '.babelrc',
+    ],
+    projectDir,
+    3
+  );
+  console.log('projectDirAllPaths', projectDirAllPaths);
 
-fs.readdirSync(projectDir)
-  .filter(
-    item =>
-      ![
-        'node_modules',
-        '.gitignore',
-        '.eslintrc',
-        '.eslintignore',
-        '.editorconfig',
-        '.DS_Store',
-        'yarn.lock',
-        'README.md',
-        '.idea',
-        '.vscode',
-        '.rf.js',
-      ].includes(item)
-  )
-  .forEach(item => {
-    if (item.includes('.')) {
-      const name = item.split('.');
-      projectDirAllPaths[
-        `app_${name[0]}${name[name.length - 1].toUpperCase()}`
-      ] = resolveApp('/' + item);
-    } else {
-      fs.readdirSync(projectDir + '/' + item).forEach(child => {
-        if (child.includes('.')) {
-          const name = child.split('.');
-          projectDirAllPaths[
-            `app_${name[0]}${name[name.length - 1].toUpperCase()}`
-          ] = resolveApp(`/${item}/` + child);
-        } else {
-          projectDirAllPaths[`app_${item}_${child}`] = resolveApp(
-            `/${item}/` + child
-          );
-        }
-      });
-    }
-  });
+  return projectDirAllPaths;
+};
 
 module.exports = Object.assign(
   {
@@ -79,7 +63,7 @@ module.exports = Object.assign(
     projectDir,
     app_dll_dllManifestJson: resolveApp('/lib/dll/dll-manifest.json'),
     app_dll_dllConfigJson: resolveApp('/lib/dll/dll-config.json'),
+    getProjectPaths,
   },
-  paths,
-  projectDirAllPaths
+  paths
 );

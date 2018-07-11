@@ -8,7 +8,7 @@
   - [x] default use create-react-app template
   - [x] mobx
   - [x] redux
-- css
+- css tools
   - [x] postcss, default
   - [x] less
   - [ ] sass
@@ -22,10 +22,10 @@
     - [ ] rem
     - [ ] vw
   - tools
-    - [ ] vconsole
-    - [ ] bundleBuddy
-    - [ ] bundleAnalyzer
-    - [ ] lodashJS
+    - [x] vconsole
+    - [x] bundleBuddy
+    - [x] bundleAnalyzer
+    - [x] lodashJS
 
 ## Plans add features
 

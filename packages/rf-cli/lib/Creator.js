@@ -141,7 +141,9 @@ module.exports = class Creator {
           : answers.complete.push(result.value);
       } else if (p.type === 'features') {
         if (result.value) {
-          answers.features.push(result.value);
+          Array.isArray(result.value)
+            ? answers.features.push(...result.value)
+            : answers.features.push(result.value);
         }
       } else {
         answers.base[p.type] = result.value;

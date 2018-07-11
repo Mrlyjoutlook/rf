@@ -20,15 +20,9 @@ module.exports = cli => {
         // less
         let cssLoader = config.module.rules[1]["oneOf"][2];
         cssLoader.test = /\.(css|less)$/;
-        if (env === "development") {
-          cssLoader.use.push({
-            loader: require.resolve("less-loader")
-          });
-        } else {
-          cssLoader.loader.push({
-            loader: require.resolve("less-loader")
-          });
-        }
+        cssLoader[env === "development" ? 'use' : 'loader'].push({
+          loader: require.resolve("less-loader"),
+        });
       `);
       preset.plugins['less'] = {
         depend: 'dev',

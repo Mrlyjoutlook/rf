@@ -1,23 +1,29 @@
-const fs = require('fs-extra');
+const debug = require('debug');
 const chalk = require('chalk');
+const fs = require('fs-extra');
 const { isEqual } = require('lodash/lang');
 const {
   app_dll_dllConfigJson,
   app_dll_dllManifestJson,
   configOverrides,
+  getProjectPaths,
 } = require('./env/paths');
-const dll = require(app_dll_dllConfigJson);
 const { config } = require(configOverrides);
 
 module.exports = async () => {
-  console.log(chalk.green('check webpack dll optimization...'));
-  const exit = await fs.existsSync(app_dll_dllManifestJson);
+  console.log(chalk.green('Check if using webpack dll optimization'));
+
+  const projectPaths = await getProjectPaths();
+  console.log('projectPaths', projectPaths);
+
+  const exit = await fs.existsSync(projectPaths['app_lib_dll-manifestjson']);
   if (exit) {
     console.log(
       chalk.magenta('Check if the file(dll-manifest.json) exists:\n')
     );
     console.log('     ' + chalk.green('Exist!'));
     console.log();
+    const dll = require(app_dll_dllConfigJson);
     const result = isEqual(dll.chunk, config.compiler_vendors);
 
     if (result) {
