@@ -1,31 +1,25 @@
-const debug = require('debug');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const { isEqual } = require('lodash/lang');
 const {
-  app_dll_dllConfigJson,
-  app_dll_dllManifestJson,
   configOverrides,
-  getProjectPaths,
+  appDllManifestJson,
+  appDllConfigJson,
 } = require('./env/paths');
 const { config } = require(configOverrides);
 
 module.exports = async () => {
-  console.log(chalk.green('Check if using webpack dll optimization'));
-
-  const projectPaths = await getProjectPaths();
-  console.log('projectPaths', projectPaths);
-
-  const exit = await fs.existsSync(projectPaths['app_lib_dll-manifestjson']);
+  console.log(chalk.cyan('⏳ Check use or not webpack dll optimization...'));
+  if (!config.compiler_vendors) {
+    return false;
+  }
+  console.log(chalk.green('\n✔︎ use webpack dll\n'));
+  const exit = await fs.existsSync(appDllManifestJson);
+  console.log(chalk.cyan('⏳ Check if the file(dll-manifest.json) exists:\n'));
   if (exit) {
-    console.log(
-      chalk.magenta('Check if the file(dll-manifest.json) exists:\n')
-    );
-    console.log('     ' + chalk.green('Exist!'));
-    console.log();
-    const dll = require(app_dll_dllConfigJson);
+    console.log(' ' + chalk.green('Exist!\n'));
+    const dll = require(appDllConfigJson);
     const result = isEqual(dll.chunk, config.compiler_vendors);
-
     if (result) {
       console.log(chalk.green('result: no problem.'));
     } else {
@@ -40,10 +34,17 @@ module.exports = async () => {
     }
     return result;
   } else {
-    console.log(chalk.dim('Check if the file(dll-manifest.json) exists:\n'));
-    console.log('     ' + chalk.red('No search!'));
-    console.log('     ' + chalk.red('Please run: npm run dll!'));
-    console.log();
+    console.log(chalk.red('✖︎  No search!'));
+    console.log(chalk.magenta('🖥  Please run:'));
+    console.log(
+      chalk.blue(`
+      |--------------------------------------------------
+      | $ yarn dll
+      | ${chalk.gray('# or')}
+      | $ npm run dll
+      |--------------------------------------------------
+      `)
+    );
     return false;
   }
 };

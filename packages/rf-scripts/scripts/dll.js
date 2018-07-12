@@ -1,68 +1,96 @@
 const debug = require('debug');
-const webpack = require('webpack');
 const chalk = require('chalk');
+const webpack = require('webpack');
 const fs = require('fs-extra');
 const filesize = require('filesize');
 const clearConsole = require('../lib/utils/clearConsole');
-const { app_dll_dllConfigJson } = require('../lib/env/paths');
+const { configOverrides, appDllConfigJson } = require('../lib/env/paths');
+const rfConfig = require(configOverrides);
 const config = require('../lib/webpack.config.dll');
 
 clearConsole();
-debug('rf-scripts:dll')('Creating an optimized production build...');
+console.log(chalk.cyan('⏳ use webpack dll optimization, build file...\n'));
 
-webpack(config).run((err, stats) => {
-  if (err) {
-    debug('rf-scripts:dll')('Webpack compiler encountered a fatal error.', err);
-    return false;
-  }
-  const jsonStats = stats.toJson();
-  if (jsonStats.errors.length > 0) {
-    debug('rf-scripts:dll')('Webpack compiler encountered errors.');
-    debug('rf-scripts:dll')(jsonStats.errors.join('\n'));
-  } else if (jsonStats.warnings.length > 0) {
-    debug('rf-scripts:dll')('Webpack compiler encountered warnings.');
-    debug('rf-scripts:dll')(jsonStats.warnings.join('\n'));
-  } else {
-    const { assets, endTime, startTime } = jsonStats;
-    const { name, size } = assets[0];
+if (
+  rfConfig.config['compiler_vendors'] &&
+  rfConfig.config['compiler_vendors'].length !== 0
+) {
+  webpack(config).run((err, stats) => {
+    debug('rf-scripts:webpack compiler fail:')(err);
+    if (err) {
+      console.log(chalk.red('✖︎ webpack compiler fail...'));
+      return false;
+    }
+    const jsonStats = stats.toJson();
+    debug('rf-scripts:jsonStats:')(jsonStats);
+    if (jsonStats.errors.length > 0) {
+      debug('rf-scripts:webpack compiler errors:')(jsonStats.errors.join('\n'));
+    } else if (jsonStats.warnings.length > 0) {
+      debug('rf-scripts:webpack compiler warnings:')(
+        jsonStats.warnings.join('\n')
+      );
+    } else {
+      const { assets, endTime, startTime } = jsonStats;
+      const { name, size } = assets[0];
 
-    fs.writeJsonSync(app_dll_dllConfigJson, {
-      name,
-      size,
-      chunk: config.entry.vendor,
-    });
+      fs.writeJsonSync(appDllConfigJson, {
+        name,
+        size,
+        chunk: config.entry.vendor,
+      });
 
-    console.log(chalk.dim('\nFile info:\n'));
-    console.log(
-      '     ' + filesize(size, { base: 10 }) + '  ' + chalk.cyan(name)
-    );
-    console.log();
+      console.log(chalk.cyan('📜 build file info:\n'));
+      console.log(
+        '     ' + filesize(size, { base: 10 }) + '  ' + chalk.green(name) + '\n'
+      );
 
-    console.log(chalk.dim('build file(dll-config.json):\n'));
-    console.log('     ' + chalk.dim('name: ') + chalk.cyan(name));
-    console.log('     ' + chalk.dim('size: ') + chalk.cyan(size));
-    console.log(
-      '     ' + chalk.dim('chunk: ') + chalk.cyan(config.entry.vendor)
-    );
-    console.log();
-
-    debug('Spend Time: ' + (endTime - startTime) / 1000);
-    debug('Build OK!');
-
-    console.log(chalk.dim('\nWarn:\n'));
-    console.log(
-      '     ' + chalk.yellow('please edit peak.json(html), add key-value')
-    );
-    console.log('     ' + chalk.yellow('eg:'));
-    console.log('       ' + chalk.yellow('{...'));
-    console.log('       ' + chalk.yellow('html: { test: **/**/**.js }'));
-    console.log('       ' + chalk.yellow('...}'));
-    console.log();
-    console.log(
-      '     ' + chalk.yellow('please edit index.html templ, print key')
-    );
-    console.log('     ' + chalk.yellow('eg:'));
-    console.log('       ' + chalk.yellow('<script src="%test%"></script>'));
-    console.log();
-  }
-});
+      console.log(chalk.cyan('📜 config file desc:\n'));
+      console.log('     ' + chalk.dim('name: ') + chalk.cyan(name));
+      console.log('     ' + chalk.dim('size: ') + chalk.cyan(size));
+      console.log(
+        '     ' + chalk.dim('chunk: ') + chalk.cyan(config.entry.vendor) + '\n'
+      );
+      console.log('⏰ time:\n');
+      console.log('     ' + chalk.yellow((endTime - startTime) / 1000) + '\n');
+      console.log('😀 Build OK!\n');
+      console.log(chalk.magenta('tip:'));
+      console.log(
+        chalk.blue(`
+        |--------------------------------------------------
+        | ${chalk.dim('# edit .rf.js config html fileds')}
+        | eg:
+        | config: {
+        |   ...
+        |   html: { test: **/**/**.js }
+        |   ...
+        | }
+        | ${chalk.dim('# edit html file')}
+        | eg:
+        |   <script src="%test%"></script>
+        |--------------------------------------------------
+        `)
+      );
+    }
+  });
+} else {
+  console.log(chalk.red('✖︎ build fail!\n'));
+  console.log(
+    chalk.yellow(
+      '💡 Check if the field (compiler_vendors) in the config file (.rf.js) exists or the value is not empty.'
+    )
+  );
+  console.log(
+    chalk.blue(`
+    .rf.js eg:
+    |--------------------------------------------------
+    | ...
+    | config: {
+    |   ...
+    |   compiler_vendors: ['react']
+    |   ... 
+    | }
+    | ...
+    |--------------------------------------------------
+    `)
+  );
+}

@@ -48,10 +48,8 @@ const getProjectPaths = async () => {
       '.babelrc',
     ],
     projectDir,
-    3
+    2
   );
-  console.log('projectDirAllPaths', projectDirAllPaths);
-
   return projectDirAllPaths;
 };
 
@@ -60,9 +58,9 @@ module.exports = Object.assign(
     scriptVersion: modulePath,
     configOverrides: config_overrides,
     customScriptsIndex: custom_scripts ? cs_index : -1,
+    appDllManifestJson: resolveApp('/lib/dll/manifest.json'),
+    appDllConfigJson: resolveApp('/lib/dll/config.json'),
     projectDir,
-    app_dll_dllManifestJson: resolveApp('/lib/dll/dll-manifest.json'),
-    app_dll_dllConfigJson: resolveApp('/lib/dll/dll-config.json'),
     getProjectPaths,
   },
   paths

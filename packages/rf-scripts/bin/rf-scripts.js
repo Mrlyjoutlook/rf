@@ -58,7 +58,7 @@ async function run(script) {
   }
 }
 
-// clearConsole();
+clearConsole();
 
 switch (script) {
   case 'build':

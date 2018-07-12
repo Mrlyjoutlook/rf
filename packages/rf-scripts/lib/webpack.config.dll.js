@@ -19,7 +19,7 @@ module.exports = {
     new webpack.DllPlugin({
       context: paths.projectDir,
       name: '[name]_library',
-      path: paths.app_dll_dllManifestJson,
+      path: paths.appDllManifestJson,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
