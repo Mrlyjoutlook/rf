@@ -15,7 +15,7 @@ module.exports = async () => {
   }
   console.log(chalk.green('\n✔︎ use webpack dll\n'));
   const exit = await fs.existsSync(appDllManifestJson);
-  console.log(chalk.cyan('⏳ Check if the file(dll-manifest.json) exists:\n'));
+  console.log(chalk.cyan('⏳ Check if the file(manifest.json) exists:\n'));
   if (exit) {
     console.log(' ' + chalk.green('Exist!\n'));
     const dll = require(appDllConfigJson);
@@ -28,9 +28,7 @@ module.exports = async () => {
           'result: changes in the compiler_vendors field in the .rf.js file'
         )
       );
-      console.log(
-        chalk.green('\n you can see ./dll/dll-config.json and ./rf.js')
-      );
+      console.log(chalk.green('\n you can see ./dll/config.json and ./rf.js'));
     }
     return result;
   } else {

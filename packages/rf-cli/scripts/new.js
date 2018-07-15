@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const path = require('path');
+const debug = require('debug');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const Creator = require('../lib/Creator');
@@ -21,19 +22,23 @@ function getPromptModules() {
 }
 
 async function create(projectName, options) {
-  const targetDir = path.resolve(projectName || '.');
-  const creator = new Creator(projectName, targetDir, getPromptModules());
-  await creator.create(options);
+  try {
+    const targetDir = path.resolve(projectName || '.');
+    const creator = new Creator(projectName, targetDir, getPromptModules());
+    await creator.create(options);
+  } catch (error) {
+    console.log(chalk.red('✖︎ build fail!'));
+    debug('rf-cli:new:build fail:')(error);
+    throw error;
+  }
 }
 
-if (!args) {
-  console.log(chalk.red("rf: command error, please run 'rf -h'"));
-} else {
-  console.log(chalk.green('peak: building...'));
+console.log(chalk.cyan('⏰ build a react project...'));
 
-  if (fs.existsSync(args[0])) {
-    console.log(chalk.red('rf: project name is exist!'));
-  } else {
-    create(args, process.argv.slice(3));
-  }
+if (fs.existsSync(args)) {
+  console.log(
+    chalk.red('✖︎  project name is exist! please replace  project name')
+  );
+} else {
+  create(args, process.argv.slice(3));
 }

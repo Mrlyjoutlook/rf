@@ -19,7 +19,7 @@ const tmp = os.tmpdir();
 module.exports = {
   projectDir: resolveApp(args[0]),
   app_lib: resolveApp(args[0] + '/lib'),
-  app_dll_dllManifestJson: resolveApp(args[0] + '/lib/dll/dll-manifest.json'),
+  app_dll_dllManifestJson: resolveApp(args[0] + '/lib/dll/manifest.json'),
   tmpRfTemplate: path.join(tmp, 'rf-cli'),
   rfTemp: path.join(tmp, 'rf-cli/packages/rf-template'),
 };
