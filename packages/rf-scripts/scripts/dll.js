@@ -57,16 +57,23 @@ if (
       console.log(
         chalk.blue(`
         |--------------------------------------------------
-        | ${chalk.dim('# edit .rf.js config html fileds')}
+        | ${chalk.dim('# build or edit .env file')}
         | eg:
-        | config: {
         |   ...
-        |   html: { test: **/**/**.js }
+        |   REACT_APP_DLL: **/**/**.js
         |   ...
-        | }
         | ${chalk.dim('# edit html file')}
         | eg:
-        |   <script src="%test%"></script>
+        |   <script src="%REACT_APP_DLL%"></script>
+        | 
+        | see: 
+        |  ${chalk.cyan(
+          'https://github.com/facebook/create-react-app/blob/master/'
+        )}
+        |  ${chalk.cyan(
+          'packages/react-scripts/template/README.md#adding-custom-environment-variables'
+        )}
+        |  
         |--------------------------------------------------
         `)
       );
