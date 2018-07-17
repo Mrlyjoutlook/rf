@@ -4,30 +4,39 @@
   "scripts": {
     "start": "better-npm-run start",
     "build": "better-npm-run build",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom",
+    "precommit": "lint-staged",
+    "lint": "eslint . --fix",
+    "format": "prettier --write 'src/*/*.js' '!(node_modules)/**/*.js'"
   },
   "betterScripts": {
     "start": {
       "command": "rf-scripts start",
       "env": {
-        "DEBUG": "app:*",
         "NODE_ENV": "development"
       }
     },
     "build": {
       "command": "rf-scripts build",
       "env": {
-        "DEBUG": "app:*",
         "NODE_ENV": "production"
       }
     }
   },
-  "proxy": {},
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css,less}": [
+     "prettier --write",
+     "git add"
+    ]
+  },
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4",
-    "rf-scripts": "latest"
+    "rf-scripts": "latest",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.3",
+    "prettier": "^1.13.4"
   },
   "devDependencies": {
     "better-npm-run": "^0.1.0"

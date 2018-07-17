@@ -7,7 +7,4 @@ module.exports = {
     // @rf-cli-complete-end
     return config;
   },
-  devServer: (config, paths, env, base) => {
-    return config;
-  },
 };

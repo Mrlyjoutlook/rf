@@ -37,7 +37,7 @@ module.exports = cli => {
       `);
     }
     if (answers.features.includes('vconsole')) {
-      preset.config['vconsole'] = true;
+      preset.config['vconsole'] = false;
       preset.imp.push(
         "const vConsolePlugin = require('vconsole-webpack-plugin');"
       );
@@ -47,12 +47,15 @@ module.exports = cli => {
       };
       preset.configFile.push(`
         // tools vconsole
-        config.plugins.push(
-          new vConsolePlugin({ enable: true }),
-        );
+        if (base.vconsole) {
+          config.plugins.push(
+            new vConsolePlugin({ enable: true }),
+          );
+        }
       `);
     }
     if (answers.features.includes('bundleAnalyzer')) {
+      preset.config['bundleAnalyzer'] = false;
       preset.imp.push(
         "const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;"
       );
@@ -62,12 +65,15 @@ module.exports = cli => {
       };
       preset.configFile.push(`
         // tools bundleAnalyzer 包大小分析工具
-        config.plugins.push(
-          new BundleAnalyzerPlugin(),
-        );
+        if (base.bundleAnalyzer) {
+          config.plugins.push(
+            new BundleAnalyzerPlugin(),
+          );
+        }
       `);
     }
     if (answers.features.includes('bundleBuddy')) {
+      preset.config['bundleBuddy'] = false;
       preset.imp.push(
         "const BundleBuddyWebpackPlugin = require('bundle-buddy-webpack-plugin');"
       );
@@ -77,7 +83,7 @@ module.exports = cli => {
       };
       preset.configFile.push(`
         // tools bundleBuddy 打包后代码分割依赖包分析
-        if (env === 'production') {
+        if (env['NODE_ENV'] === 'production' && base.bundleBuddy) {
           config.plugins.push(new BundleBuddyWebpackPlugin({ warnings: false }));
         }
       `);
