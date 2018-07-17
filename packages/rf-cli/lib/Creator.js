@@ -95,6 +95,7 @@ module.exports = class Creator {
     content = prettier.format(content, {
       parser: 'babylon',
       trailingComma: 'es5',
+      singleQuote: true,
     });
     // overrides file
     await writeFileTree(context, {
