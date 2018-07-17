@@ -115,7 +115,9 @@ module.exports = class Creator {
     let preset = {
       configFile: [], // .rf.js compiling content(@rf-cli-complete-begin~end)
       imp: [], // .rf.js compiling content(@rf-cli-import)
-      config: {}, // .rf.js compiling content(@rf-cli-config)
+      config: {
+        resolve_alias: {},
+      }, // .rf.js compiling content(@rf-cli-config)
       plugins: [], // pkg dependencies/devDependencies fields
       pkgFields: {}, // pkg expand fields
       babel: [],

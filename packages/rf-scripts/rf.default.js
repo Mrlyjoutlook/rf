@@ -1,4 +1,4 @@
-module.exports = (config, paths, env) => {
+module.exports = (config, paths, env, base) => {
   // default open useEslintrc ignore
   let eslintLoader = config.module.rules[0];
   eslintLoader.use[0].options.useEslintrc = true;
@@ -16,6 +16,8 @@ module.exports = (config, paths, env) => {
   options.config = {
     path: paths.appPath,
   };
+  // resolve alias
+  config.resolve.alias = paths.alias(base['resolve_alias']);
 
   return config;
 };

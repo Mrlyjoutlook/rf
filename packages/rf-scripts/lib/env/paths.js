@@ -51,6 +51,15 @@ const getProjectPaths = async () => {
   return projectDirAllPaths;
 };
 
+const alias = obj => {
+  let result = {};
+  const keys = Object.keys(obj);
+  keys.map(item => {
+    result[item] = resolveApp(obj[item]);
+  });
+  return result;
+};
+
 module.exports = {
   scriptVersion: modulePath,
   configOverrides: config_overrides,
@@ -59,4 +68,5 @@ module.exports = {
   appDllConfigJson: resolveApp('/lib/dll/config.json'),
   projectDir,
   getProjectPaths,
+  alias,
 };
