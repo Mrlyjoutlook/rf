@@ -15,7 +15,7 @@
 - features
   - [x] webpack dll optimize
   - [x] webpack commons code split optimize
-  - [ ] service work
+  - [x] service work
   - [x] multi-page
   - [ ] preload
   - mobileAdaptae
@@ -29,8 +29,17 @@
 
 ## Plans add features
 
-- features
-  - [] skeleton page
+### skeleton page
+
+> ***
+
+- undeveloped
+
+### add custome asstes path
+
+> ***
+
+- undeveloped
 
 ## License
 

@@ -2,12 +2,12 @@
 
 module.exports = {
   // @rf-cli-config
-  webpack: (config, env, base, paths) => {
+  webpack: (config, paths, env, base) => {
     // @rf-cli-complete-begin
     // @rf-cli-complete-end
     return config;
   },
-  devServer: (config, env, base, paths) => {
+  devServer: (config, paths, env, base) => {
     return config;
   },
 };

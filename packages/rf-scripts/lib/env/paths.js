@@ -28,8 +28,6 @@ const modulePath = path.join(
   '..'
 );
 
-const paths = require(modulePath + '/config/paths.js');
-
 // work dir or file path
 const getProjectPaths = async () => {
   const projectDirAllPaths = await readDirFilePath(
@@ -53,15 +51,12 @@ const getProjectPaths = async () => {
   return projectDirAllPaths;
 };
 
-module.exports = Object.assign(
-  {
-    scriptVersion: modulePath,
-    configOverrides: config_overrides,
-    customScriptsIndex: custom_scripts ? cs_index : -1,
-    appDllManifestJson: resolveApp('/lib/dll/manifest.json'),
-    appDllConfigJson: resolveApp('/lib/dll/config.json'),
-    projectDir,
-    getProjectPaths,
-  },
-  paths
-);
+module.exports = {
+  scriptVersion: modulePath,
+  configOverrides: config_overrides,
+  customScriptsIndex: custom_scripts ? cs_index : -1,
+  appDllManifestJson: resolveApp('/lib/dll/manifest.json'),
+  appDllConfigJson: resolveApp('/lib/dll/config.json'),
+  projectDir,
+  getProjectPaths,
+};

@@ -20,7 +20,7 @@ module.exports = cli => {
         // less
         let cssLoader = config.module.rules[1]["oneOf"][2];
         cssLoader.test = /\.(css|less)$/;
-        cssLoader[env === "development" ? 'use' : 'loader'].push({
+        cssLoader[env['NODE_ENV'] === "development" ? 'use' : 'loader'].push({
           loader: require.resolve("less-loader"),
         });
       `);

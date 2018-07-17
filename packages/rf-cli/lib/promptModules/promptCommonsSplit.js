@@ -18,7 +18,7 @@ module.exports = cli => {
       preset.config['compiler_commons'] = [];
       preset.configFile.push(`
         // webpack optimize commons code split
-        if (env === "production" && base.compiler_commons.length !== 0) {
+        if (env['NODE_ENV'] === "production" && base.compiler_commons.length !== 0) {
           if (Array.isArray(config.entry)) {
             const arr = [...config.entry];
             config.entry = {

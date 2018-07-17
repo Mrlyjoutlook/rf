@@ -43,7 +43,7 @@ module.exports = cli => {
                   template: paths.appPublic + "/" + item + ".html",
                   chunks: [item, "commons", "manifest"]
                 },
-                env === "development"
+                env['NODE_ENV'] === "development"
                   ? {
                     minify: {
                       removeComments: true,
