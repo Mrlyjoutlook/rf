@@ -33,12 +33,14 @@ module.exports = cli => {
       preset.config['compiler_vendors'] = [];
       preset.configFile.push(`
         // webpack optimize dll
-        config.plugins.push(
-          new webpack.DllReferencePlugin({
-            context: "${projectDir}",
-            manifest: "${app_dll_dllManifestJson}",
-          })
-        );
+        if (base['compiler_vendors']) {
+          config.plugins.push(
+            new webpack.DllReferencePlugin({
+              context: "${projectDir}",
+              manifest: "${app_dll_dllManifestJson}",
+            })
+          );
+        }
       `);
     }
   });

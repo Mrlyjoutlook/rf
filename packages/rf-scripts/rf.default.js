@@ -1,12 +1,13 @@
 module.exports = (config, paths, env, base) => {
   // default open useEslintrc ignore
   let eslintLoader = config.module.rules[0];
-  eslintLoader.use[0].options.useEslintrc = true;
-  eslintLoader.use[0].options.ignore = true;
+  delete eslintLoader.use[0].options.baseConfig;
+  delete eslintLoader.use[0].options.useEslintrc;
+  delete eslintLoader.use[0].options.ignore;
   // default open .babelrc
   let babelLoad = config.module.rules[1]['oneOf'][1];
   babelLoad.options = {
-    compact: true,
+    cacheDirectory: true,
   };
   // default open postcss config
   let cssLoader = config.module.rules[1]['oneOf'][2];
