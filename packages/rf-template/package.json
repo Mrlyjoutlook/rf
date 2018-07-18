@@ -1,6 +1,6 @@
 {
   "name": "rf-template",
-  "version": "0.0.7",
+  "version": "0.0.3",
   "scripts": {
     "start": "better-npm-run start",
     "build": "better-npm-run build",
