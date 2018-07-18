@@ -1,6 +1,6 @@
 {
   "name": "rf-scripts",
-  "version": "0.0.6",
+  "version": "0.0.5",
   "bin": {
     "rf-scripts": "./bin/rf-scripts.js"
   },
