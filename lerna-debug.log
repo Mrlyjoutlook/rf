@@ -63,13 +63,14 @@
 54 verbose commit [ 'commit',
 54 verbose commit   '--no-verify',
 54 verbose commit   '-F',
-54 verbose commit   '/private/var/folders/tg/6s67j1ln41b5zfr97y3ynzn00000gn/T/979d4201-a96d-40b1-92ff-4b22d7d2f1d1/lerna-commit.txt' ]
+54 verbose commit   '/private/var/folders/tg/6s67j1ln41b5zfr97y3ynzn00000gn/T/c37d39b2-2b18-4d74-8d36-49225e853ab8/lerna-commit.txt' ]
 55 error execute caught error
 56 error Error: On branch master
-56 error Untracked files:
-56 error 	yarn.lock
+56 error Changes not staged for commit:
+56 error 	modified:   .gitignore
+56 error 	modified:   lerna-debug.log
 56 error
-56 error nothing added to commit but untracked files present
+56 error no changes added to commit
 56 error
 56 error     at Function.module.exports.sync (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/execa/index.js:303:26)
 56 error     at Function.execSync (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/ChildProcessUtilities.js:59:30)
