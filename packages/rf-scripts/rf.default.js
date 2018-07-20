@@ -1,4 +1,6 @@
 module.exports = (config, paths, env, base) => {
+  const isDev = env['NODE_ENV'] === 'development';
+
   // default open useEslintrc ignore
   let eslintLoader = config.module.rules[0];
   delete eslintLoader.use[0].options.baseConfig;
@@ -11,8 +13,7 @@ module.exports = (config, paths, env, base) => {
   };
   // default open postcss config
   let cssLoader = config.module.rules[1]['oneOf'][2];
-  let options =
-    cssLoader[env['NODE_ENV'] === 'development' ? 'use' : 'loader'][2].options;
+  let options = cssLoader[isDev ? 'use' : 'loader'][isDev ? 2 : 3].options;
   delete options.plugins;
   options.config = {
     path: paths.appPath,
