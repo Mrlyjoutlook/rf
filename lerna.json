@@ -4,7 +4,7 @@
   "useWorkspaces": true,
   "version": "independent",
   "changelog": {
-    "repo": "Mrlyjoutlook/rf-cli",
+    "repo": "Mrlyjoutlook/rf",
     "labels": {
       "tag: new feature": ":rocket: New Feature",
       "tag: breaking change": ":boom: Breaking Change",

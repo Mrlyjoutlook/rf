@@ -2,9 +2,8 @@
 1 silly flags { _: [ 'publish' ],
 1 silly flags   'reject-cycles': false,
 1 silly flags   rejectCycles: false,
-1 silly flags   yes: true,
-1 silly flags   canary: true,
-1 silly flags   c: true }
+1 silly flags   'force-publish': 'rf-scripts',
+1 silly flags   forcePublish: 'rf-scripts' }
 2 verbose rootPath /Users/j.ie/react/rf-cli
 3 info version 2.11.0
 4 silly isInitialized
@@ -12,150 +11,55 @@
 6 silly existsSync /Users/j.ie/react/rf-cli/VERSION
 7 info versioning independent
 8 silly initialize attempt
-9 info canary enabled
-10 silly getUpdates
-11 info Checking for updated packages...
-12 silly hasTags
-13 verbose hasTags true
-14 silly getCurrentSHA
-15 verbose getCurrentSHA 813c2474db59920626fc663d304b4d74bf3d9988
-16 info Comparing with 813c2474^..813c2474.
-17 silly diffSinceIn 813c2474^..813c2474 packages/rf-cli
-18 silly diff packages/rf-cli/package.json
-19 silly diffSinceIn 813c2474^..813c2474 packages/rf-scripts
-20 silly diff packages/rf-scripts/package.json
-21 silly diffSinceIn 813c2474^..813c2474 packages/rf-template
-22 silly diff packages/rf-template/package.json
-23 verbose updated rf-cli
-24 verbose updated rf-scripts
-25 verbose updated rf-template
-26 info Checking for prereleased packages...
-27 silly collectDependents
-28 silly isPackageDependentOf rf-cli rf-cli
+9 silly isDetachedHead
+10 silly getCurrentBranch
+11 verbose getCurrentBranch master
+12 verbose isDetachedHead false
+13 silly getCurrentBranch
+14 verbose getCurrentBranch master
+15 silly getUpdates
+16 info Checking for updated packages...
+17 silly hasTags
+18 verbose hasTags true
+19 silly getLastTag
+20 verbose getLastTag rf-scripts@0.1.6
+21 info Comparing with rf-scripts@0.1.6.
+22 silly diffSinceIn rf-scripts@0.1.6 packages/rf-cli
+23 silly diff
+24 silly diffSinceIn rf-scripts@0.1.6 packages/rf-template
+25 silly diff
+26 verbose updated rf-scripts
+27 info Checking for prereleased packages...
+28 silly collectDependents
 29 silly isPackageDependentOf rf-cli rf-scripts
-30 silly isPackageDependentOf rf-cli rf-template
-31 silly isPackageDependentOf rf-scripts rf-cli
-32 silly isPackageDependentOf rf-scripts rf-scripts
-33 silly isPackageDependentOf rf-scripts rf-template
-34 silly isPackageDependentOf rf-template rf-cli
-35 silly isPackageDependentOf rf-template rf-scripts
-36 silly isPackageDependentOf rf-template rf-template
-37 silly collectUpdates
-38 verbose has filtered update rf-cli
-39 verbose has filtered update rf-scripts
-40 verbose has filtered update rf-template
-41 silly getCurrentSHA
-42 verbose getCurrentSHA 813c2474db59920626fc663d304b4d74bf3d9988
-43 silly getCurrentSHA
-44 verbose getCurrentSHA 813c2474db59920626fc663d304b4d74bf3d9988
-45 silly getCurrentSHA
-46 verbose getCurrentSHA 813c2474db59920626fc663d304b4d74bf3d9988
-47 info auto-confirmed
-48 silly initialize success
-49 silly execute attempt
-50 silly runScriptSync preversion undefined
-51 silly runScriptSync preversion rf-cli
-52 silly runScriptSync version rf-cli
-53 silly runScriptSync preversion rf-scripts
-54 silly runScriptSync version rf-scripts
-55 silly runScriptSync preversion rf-template
-56 silly runScriptSync version rf-template
-57 silly runScriptSync version undefined
-58 info publish Publishing packages to npm...
-59 silly existsSync /Users/j.ie/react/rf-cli/packages/rf-cli/scripts/prepublish.js
-60 verbose execScript No prepublish script found at /Users/j.ie/react/rf-cli/packages/rf-cli/scripts/prepublish.js
-61 silly existsSync /Users/j.ie/react/rf-cli/packages/rf-scripts/scripts/prepublish.js
-62 verbose execScript No prepublish script found at /Users/j.ie/react/rf-cli/packages/rf-scripts/scripts/prepublish.js
-63 silly existsSync /Users/j.ie/react/rf-cli/packages/rf-template/scripts/prepublish.js
-64 verbose execScript No prepublish script found at /Users/j.ie/react/rf-cli/packages/rf-template/scripts/prepublish.js
-65 verbose publishing rf-cli
-66 silly publishTaggedInDir canary rf-cli
-67 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-68 verbose publishing rf-scripts
-69 silly publishTaggedInDir canary rf-scripts
-70 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-71 verbose publishing rf-template
-72 silly publishTaggedInDir canary rf-template
-73 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-74 error publish Retrying failed publish: rf-cli
-75 verbose publish error undefined
-76 verbose publishing rf-cli
-77 silly publishTaggedInDir canary rf-cli
-78 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-79 error publish Retrying failed publish: rf-scripts
-80 verbose publish error undefined
-81 verbose publishing rf-scripts
-82 silly publishTaggedInDir canary rf-scripts
-83 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-84 error publish Retrying failed publish: rf-template
-85 verbose publish error undefined
-86 verbose publishing rf-template
-87 silly publishTaggedInDir canary rf-template
-88 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-89 error publish Retrying failed publish: rf-scripts
-90 verbose publish error undefined
-91 verbose publishing rf-scripts
-92 silly publishTaggedInDir canary rf-scripts
-93 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-94 error publish Retrying failed publish: rf-cli
-95 verbose publish error undefined
-96 verbose publishing rf-cli
-97 silly publishTaggedInDir canary rf-cli
-98 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-99 error publish Retrying failed publish: rf-template
-100 verbose publish error undefined
-101 verbose publishing rf-template
-102 silly publishTaggedInDir canary rf-template
-103 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-104 error publish Retrying failed publish: rf-cli
-105 verbose publish error undefined
-106 verbose publishing rf-cli
-107 silly publishTaggedInDir canary rf-cli
-108 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-109 error publish Retrying failed publish: rf-scripts
-110 verbose publish error undefined
-111 verbose publishing rf-scripts
-112 silly publishTaggedInDir canary rf-scripts
-113 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-114 error publish Retrying failed publish: rf-template
-115 verbose publish error undefined
-116 verbose publishing rf-template
-117 silly publishTaggedInDir canary rf-template
-118 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-119 error publish Retrying failed publish: rf-scripts
-120 verbose publish error undefined
-121 verbose publishing rf-scripts
-122 silly publishTaggedInDir canary rf-scripts
-123 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
-124 error publish Retrying failed publish: rf-template
-125 verbose publish error undefined
-126 verbose publishing rf-template
-127 silly publishTaggedInDir canary rf-template
-128 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-template' }
-129 error publish Retrying failed publish: rf-cli
-130 verbose publish error undefined
-131 verbose publishing rf-cli
-132 silly publishTaggedInDir canary rf-cli
-133 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-cli' }
-134 error publish Ran out of retries while publishing rf-template Error: Command failed: yarn publish --tag canary --new-version 0.2.0-alpha.813c2474
-134 error publish error No token found and can't prompt for login when running with --non-interactive.
-134 error publish yarn publish v1.6.0
-134 error publish [1/4] Bumping version...
-134 error publish info Current version: 0.2.0-alpha.813c2474
-134 error publish [2/4] Logging in...
-134 error publish info Visit https://yarnpkg.com/en/docs/cli/publish for documentation about this command.
-134 error publish
-134 error publish     at Promise.all.then.arr (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/execa/index.js:236:11)
-134 error publish     at <anonymous>
-134 error publish     at process._tickCallback (internal/process/next_tick.js:182:7)
-135 error execute callback with error
-136 error Error: Command failed: yarn publish --tag canary --new-version 0.2.0-alpha.813c2474
-136 error error No token found and can't prompt for login when running with --non-interactive.
-136 error yarn publish v1.6.0
-136 error [1/4] Bumping version...
-136 error info Current version: 0.2.0-alpha.813c2474
-136 error [2/4] Logging in...
-136 error info Visit https://yarnpkg.com/en/docs/cli/publish for documentation about this command.
-136 error
-136 error     at Promise.all.then.arr (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/execa/index.js:236:11)
-136 error     at <anonymous>
+30 silly isPackageDependentOf rf-scripts rf-scripts
+31 silly isPackageDependentOf rf-template rf-scripts
+32 silly collectUpdates
+33 verbose has filtered update rf-scripts
+34 silly initialize success
+35 silly execute attempt
+36 silly runScriptSync preversion undefined
+37 silly runScriptSync preversion rf-scripts
+38 silly runScriptSync version rf-scripts
+39 silly runScriptSync version undefined
+40 silly addFile /Users/j.ie/react/rf-cli/packages/rf-scripts/package.json
+41 silly commit Publish
+41 silly commit
+41 silly commit  - rf-scripts@0.1.6
+42 verbose commit [ 'commit',
+42 verbose commit   '--no-verify',
+42 verbose commit   '-F',
+42 verbose commit   '/private/var/folders/tg/6s67j1ln41b5zfr97y3ynzn00000gn/T/1de2fe61-3245-4006-945d-d929513a151b/lerna-commit.txt' ]
+43 error execute caught error
+44 error Error: On branch master
+44 error Changes not staged for commit:
+44 error 	deleted:    lerna-debug.log
+44 error
+44 error no changes added to commit
+44 error
+44 error     at Function.module.exports.sync (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/execa/index.js:303:26)
+44 error     at Function.execSync (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/ChildProcessUtilities.js:59:30)
+44 error     at Function.commit (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/GitUtilities.js:94:39)
+44 error     at PublishCommand.gitCommitAndTagVersionForUpdates (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/commands/PublishCommand.js:765:30)
+44 error     at PublishCommand.commitAndTagUpdates (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/commands/PublishCommand.js:738:26)
+44 error     at PublishCommand.execute (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/commands/PublishCommand.js:329:14)
