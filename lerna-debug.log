@@ -1,9 +1,5 @@
 0 silly input [ 'publish' ]
-1 silly flags { _: [ 'publish' ],
-1 silly flags   'reject-cycles': false,
-1 silly flags   rejectCycles: false,
-1 silly flags   'force-publish': 'rf-scripts',
-1 silly flags   forcePublish: 'rf-scripts' }
+1 silly flags { _: [ 'publish' ], 'reject-cycles': false, rejectCycles: false }
 2 verbose rootPath /Users/j.ie/react/rf-cli
 3 info version 2.11.0
 4 silly isInitialized
@@ -26,40 +22,80 @@
 21 info Comparing with rf-scripts@0.1.6.
 22 silly diffSinceIn rf-scripts@0.1.6 packages/rf-cli
 23 silly diff
-24 silly diffSinceIn rf-scripts@0.1.6 packages/rf-template
-25 silly diff
-26 verbose updated rf-scripts
-27 info Checking for prereleased packages...
-28 silly collectDependents
-29 silly isPackageDependentOf rf-cli rf-scripts
-30 silly isPackageDependentOf rf-scripts rf-scripts
-31 silly isPackageDependentOf rf-template rf-scripts
-32 silly collectUpdates
-33 verbose has filtered update rf-scripts
-34 silly initialize success
-35 silly execute attempt
-36 silly runScriptSync preversion undefined
-37 silly runScriptSync preversion rf-scripts
-38 silly runScriptSync version rf-scripts
-39 silly runScriptSync version undefined
-40 silly addFile /Users/j.ie/react/rf-cli/packages/rf-scripts/package.json
-41 silly commit Publish
-41 silly commit
-41 silly commit  - rf-scripts@0.1.6
-42 verbose commit [ 'commit',
-42 verbose commit   '--no-verify',
-42 verbose commit   '-F',
-42 verbose commit   '/private/var/folders/tg/6s67j1ln41b5zfr97y3ynzn00000gn/T/1de2fe61-3245-4006-945d-d929513a151b/lerna-commit.txt' ]
-43 error execute caught error
-44 error Error: On branch master
-44 error Changes not staged for commit:
-44 error 	deleted:    lerna-debug.log
-44 error
-44 error no changes added to commit
-44 error
-44 error     at Function.module.exports.sync (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/execa/index.js:303:26)
-44 error     at Function.execSync (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/ChildProcessUtilities.js:59:30)
-44 error     at Function.commit (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/GitUtilities.js:94:39)
-44 error     at PublishCommand.gitCommitAndTagVersionForUpdates (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/commands/PublishCommand.js:765:30)
-44 error     at PublishCommand.commitAndTagUpdates (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/commands/PublishCommand.js:738:26)
-44 error     at PublishCommand.execute (/Users/j.ie/.config/yarn/global/node_modules/lerna/lib/commands/PublishCommand.js:329:14)
+24 silly diffSinceIn rf-scripts@0.1.6 packages/rf-scripts
+25 silly diff packages/rf-scripts/lib/env/env.js
+26 silly diffSinceIn rf-scripts@0.1.6 packages/rf-template
+27 silly diff
+28 verbose updated rf-scripts
+29 info Checking for prereleased packages...
+30 silly collectDependents
+31 silly isPackageDependentOf rf-cli rf-scripts
+32 silly isPackageDependentOf rf-scripts rf-scripts
+33 silly isPackageDependentOf rf-template rf-scripts
+34 silly collectUpdates
+35 verbose has filtered update rf-scripts
+36 silly initialize success
+37 silly execute attempt
+38 silly runScriptSync preversion undefined
+39 silly runScriptSync preversion rf-scripts
+40 silly runScriptSync version rf-scripts
+41 silly runScriptSync version undefined
+42 silly addFile /Users/j.ie/react/rf-cli/packages/rf-scripts/package.json
+43 silly commit Publish
+43 silly commit
+43 silly commit  - rf-scripts@0.1.7
+44 verbose commit [ 'commit',
+44 verbose commit   '--no-verify',
+44 verbose commit   '-F',
+44 verbose commit   '/private/var/folders/tg/6s67j1ln41b5zfr97y3ynzn00000gn/T/903827e2-44c0-4c7c-80c5-b6a9bc8282d6/lerna-commit.txt' ]
+45 silly addTag rf-scripts@0.1.7
+46 silly runScriptSync postversion rf-scripts
+47 silly runScriptSync postversion undefined
+48 info publish Publishing packages to npm...
+49 silly existsSync /Users/j.ie/react/rf-cli/packages/rf-scripts/scripts/prepublish.js
+50 verbose execScript No prepublish script found at /Users/j.ie/react/rf-cli/packages/rf-scripts/scripts/prepublish.js
+51 verbose publishing rf-scripts
+52 silly publishTaggedInDir latest rf-scripts
+53 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
+54 error publish Retrying failed publish: rf-scripts
+55 verbose publish error undefined
+56 verbose publishing rf-scripts
+57 silly publishTaggedInDir latest rf-scripts
+58 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
+59 error publish Retrying failed publish: rf-scripts
+60 verbose publish error undefined
+61 verbose publishing rf-scripts
+62 silly publishTaggedInDir latest rf-scripts
+63 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
+64 error publish Retrying failed publish: rf-scripts
+65 verbose publish error undefined
+66 verbose publishing rf-scripts
+67 silly publishTaggedInDir latest rf-scripts
+68 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
+69 error publish Retrying failed publish: rf-scripts
+70 verbose publish error undefined
+71 verbose publishing rf-scripts
+72 silly publishTaggedInDir latest rf-scripts
+73 silly getExecOpts { cwd: '/Users/j.ie/react/rf-cli/packages/rf-scripts' }
+74 error publish Ran out of retries while publishing rf-scripts Error: Command failed: yarn publish --tag latest --new-version 0.1.7
+74 error publish error No token found and can't prompt for login when running with --non-interactive.
+74 error publish yarn publish v1.6.0
+74 error publish [1/4] Bumping version...
+74 error publish info Current version: 0.1.7
+74 error publish [2/4] Logging in...
+74 error publish info Visit https://yarnpkg.com/en/docs/cli/publish for documentation about this command.
+74 error publish
+74 error publish     at Promise.all.then.arr (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/execa/index.js:236:11)
+74 error publish     at <anonymous>
+74 error publish     at process._tickCallback (internal/process/next_tick.js:182:7)
+75 error execute callback with error
+76 error Error: Command failed: yarn publish --tag latest --new-version 0.1.7
+76 error error No token found and can't prompt for login when running with --non-interactive.
+76 error yarn publish v1.6.0
+76 error [1/4] Bumping version...
+76 error info Current version: 0.1.7
+76 error [2/4] Logging in...
+76 error info Visit https://yarnpkg.com/en/docs/cli/publish for documentation about this command.
+76 error
+76 error     at Promise.all.then.arr (/Users/j.ie/.config/yarn/global/node_modules/lerna/node_modules/execa/index.js:236:11)
+76 error     at <anonymous>
