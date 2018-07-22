@@ -12,11 +12,12 @@ module.exports = (config, paths, env, base) => {
     cacheDirectory: true,
   };
   // default open postcss config
-  let cssLoader = config.module.rules[1]['oneOf'][2];
-  let options = cssLoader[isDev ? 'use' : 'loader'][isDev ? 2 : 3].options;
-  delete options.plugins;
-  options.config = {
-    path: paths.appPath,
+  let postcssLoader =
+    config.module.rules[1]['oneOf'][2][isDev ? 'use' : 'loader'][isDev ? 2 : 3];
+  postcssLoader.options = {
+    config: {
+      path: paths.appPath,
+    },
   };
   // resolve alias
   config.resolve.alias = paths.alias(base['resolve_alias']);
