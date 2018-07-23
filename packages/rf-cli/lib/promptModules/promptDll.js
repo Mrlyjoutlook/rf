@@ -1,5 +1,3 @@
-const { projectDir, app_dll_dllManifestJson } = require('../env/local-path');
-
 module.exports = cli => {
   cli.injectPrompt({
     type: 'features',
@@ -36,8 +34,8 @@ module.exports = cli => {
         if (base['compiler_vendors']) {
           config.plugins.push(
             new webpack.DllReferencePlugin({
-              context: "${projectDir}",
-              manifest: "${app_dll_dllManifestJson}",
+              context: paths.appPath,,
+              manifest: paths.appDllManifestJson,
             })
           );
         }
