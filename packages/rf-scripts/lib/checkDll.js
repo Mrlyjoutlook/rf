@@ -6,6 +6,7 @@ const {
   appDllManifestJson,
   appDllConfigJson,
 } = require('./env/paths');
+const clearConsole = require('./utils/clearConsole');
 const { config } = require(configOverrides);
 
 module.exports = async () => {
@@ -22,6 +23,7 @@ module.exports = async () => {
     const result = isEqual(dll.chunk, config.compiler_vendors);
     if (result) {
       console.log(chalk.green('result: no problem.'));
+      clearConsole();
     } else {
       console.log(
         chalk.yellow(

@@ -30,40 +30,41 @@ module.exports = cli => {
         config.entry = {};
         getEntry().forEach(item => {
           // Keep the commons keyword for webpack variable commons code split
-          if (item !== "commons") {
-          // arr[0] is create-react-app polyfills file
-          config.entry[item] = [arr[0], paths.appSrc + "/" + item + ".js"];
-          config.plugins.push(
-            new HtmlWebpackPlugin(
-              Object.assign(
-                {},
-                {
-                  inject: true,
-                  filename: item + ".html",
-                  template: paths.appPublic + "/" + item + ".html",
-                  chunks: [item, "commons", "manifest"]
-                },
-                env['NODE_ENV'] === "development"
-                  ? {
-                    minify: {
-                      removeComments: true,
-                      collapseWhitespace: true,
-                      removeRedundantAttributes: true,
-                      useShortDoctype: true,
-                      removeEmptyAttributes: true,
-                      removeStyleLinkTypeAttributes: true,
-                      keepClosingSlash: true,
-                      minifyJS: true,
-                      minifyCSS: true,
-                      minifyURLs: true
-                    }
-                  }
-                : {}
+          if (!item.includes('commons')) {
+            const name = item.replace(/\.(js|jsx)$/, '').replace(/\./g, '');
+            arr.pop();
+            config.entry[name] = [...arr, paths.appSrc + '/' + item];
+            config.plugins.push(
+              new HtmlWebpackPlugin(
+                Object.assign(
+                  {},
+                  {
+                    inject: true,
+                    filename: name + '.html',
+                    template: paths.appPublic + '/' + name + '.html',
+                    chunks: [name, 'commons', 'manifest'],
+                  },
+                  env['NODE_ENV'] === 'development'
+                    ? {
+                        minify: {
+                          removeComments: true,
+                          collapseWhitespace: true,
+                          removeRedundantAttributes: true,
+                          useShortDoctype: true,
+                          removeEmptyAttributes: true,
+                          removeStyleLinkTypeAttributes: true,
+                          keepClosingSlash: true,
+                          minifyJS: true,
+                          minifyCSS: true,
+                          minifyURLs: true,
+                        },
+                      }
+                    : {}
+                )
               )
-            )
-          );
-        }
-      });
+            );
+          }
+        });
       `);
       preset.cbs.push(() => {
         if (!fs.existsSync(app_lib)) {

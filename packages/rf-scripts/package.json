@@ -4,6 +4,13 @@
   "bin": {
     "rf-scripts": "./bin/rf-scripts.js"
   },
+  "bugs": {
+    "url": "https://github.com/Mrlyjoutlook/rf/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mrlyjoutlook/rf/packages/rf-scripts"
+  },
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.1",

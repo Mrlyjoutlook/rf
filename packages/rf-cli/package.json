@@ -5,7 +5,11 @@
     "rf": "./bin/index.js"
   },
   "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
+    "url": "https://github.com/Mrlyjoutlook/rf/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mrlyjoutlook/rf/packages/rf-cli"
   },
   "license": "MIT",
   "dependencies": {

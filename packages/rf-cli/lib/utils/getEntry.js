@@ -2,15 +2,18 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports = () => {
-  const public = path.resolve(__dirname, '../public');
+  const pb = path.resolve(__dirname, '../public');
   const src = path.resolve(__dirname, '../src');
-  const srcFile = fs
+
+  const htmlFiles = fs
+    .readdirSync(pb)
+    .filter(filename => /\.html$/.test(filename))
+    .map(filename => filename.replace(/\.html$/, ''));
+
+  return fs
     .readdirSync(src)
     .filter(filename => /\.(js|jsx)$/.test(filename))
-    .map(filename => filename.replace(/\.(js|jsx)$/, ''));
-  return fs
-    .readdirSync(public)
-    .filter(filename => /\.html$/.test(filename))
-    .filter(filename => srcFile.includes(filename.replace(/\.html$/, '')))
-    .map(filename => filename.replace(/\.html$/, ''));
+    .filter(filename =>
+      htmlFiles.includes(filename.replace(/\.(js|jsx)$/, ''))
+    );
 };
