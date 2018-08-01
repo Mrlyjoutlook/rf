@@ -10,7 +10,7 @@ Create React App的重点在于react-scripts包，其提供链接webpack配置�
 
 ## use guide
 
-### install
+### init
 
 ```shell
 $ yarn add rf-script --dev
@@ -20,12 +20,21 @@ $ npm install rf-script --save-dev
 
 create **.rf.js** file in your root dir.
 
-**eg**
+*eg*
+
+```javascript
+module.exports = {
+  config: {},
+  webpack: () => {}
+}
+```
 
 ### config file
 
-|
-|--||
+#### config
+
+resolve_alias
+
 
 ## change log
 
