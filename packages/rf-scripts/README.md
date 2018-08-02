@@ -54,7 +54,9 @@ now, you can run.
 
 当进行开发或者打包时，都会对`config`的`compiler_vendors`字段进行校验⁉️
 
-[img](https://github.com/Mrlyjoutlook/rf/tree/master/doc/check.png)
+<div>
+  <img src="https://github.com/Mrlyjoutlook/rf/blob/master/doc/check.png"/>
+</div>
 
 ### webpack Files
 
@@ -68,9 +70,11 @@ now, you can run.
 
 **config**
 
+webpack config
+
 **paths**
 
-
+return file and dir path, getProjectPaths and alias fields is help function.
 
 **env**
 
