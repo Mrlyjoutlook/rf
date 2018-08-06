@@ -8,6 +8,7 @@ module.exports = cli => {
       choices: [
         { title: 'postcss', value: 'postcss', selected: true },
         { title: 'less', value: 'less' },
+        { title: 'css+modules', value: 'cssmodules' },
       ],
       initial: 1,
       max: 3,
@@ -32,6 +33,15 @@ module.exports = cli => {
         depend: 'dev',
         version: '^4.1.0',
       };
+    }
+    if (answers.complete.includes('cssmodules')) {
+      if (answers.complete.includes('less')) {
+        preset.configFile.push(`
+          // open css modules
+          cssLoader[env['NODE_ENV'] === "development" ? 'use' : 'loader'][1].options.modules = true;
+        `);
+        return false;
+      }
     }
   });
 };
