@@ -19,7 +19,7 @@ you also can use yarn
 
 ## User Guide
 
-[rf-scripts](https://github.com/Mrlyjoutlook/rf/tree/master/packages/rf-scripts) provides the ability to rewrite configuration
+[rf-scripts](https://github.com/Mrlyjoutlook/rf/tree/master/packages/rf-scripts) provides the ability to rewrite configuration
 
 ## LICENSE
 
