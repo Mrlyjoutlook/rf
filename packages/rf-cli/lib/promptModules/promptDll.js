@@ -34,7 +34,7 @@ module.exports = cli => {
         if (base['compiler_vendors']) {
           config.plugins.push(
             new webpack.DllReferencePlugin({
-              context: paths.appPath,,
+              context: paths.appPath,
               manifest: paths.appDllManifestJson,
             })
           );
