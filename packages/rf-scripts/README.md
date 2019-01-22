@@ -2,6 +2,8 @@
 
 > rewired react-scripts config
 
+only support react-scripts@1.x
+
 Create React App为开发者提供一套不错的配置，上手即用，并且提供了'eject'功能，可以自定义配置。
 但当Create React App变化或者升级时，特别是它使用的react-scripts包变化时，可能会导致我们的配置出现不兼容的bug。
 故Create React App的作者们也是强调若非必要请不要这么做！（即使用'eject'功能）可实际开发情况，我们都需要进行定制化配置修改。
@@ -46,13 +48,13 @@ now, you can run.
 
 ### config Files
 
-- `resolve_alias` 会添加到**webpack resolve -> alias**
+- `resolve_alias` 会添加到**webpack resolve -> alias**
 - `compiler_vendors` webpack的**DllReferencePlugin**优化功能
-- `compiler_commons` webpack的**CommonsChunkPlugin**优化功能
+- `compiler_commons` webpack的**CommonsChunkPlugin**优化功能
 
 **compiler_vendors**
 
-当进行开发或者打包时，都会对`config`的`compiler_vendors`字段进行校验⁉️
+当进行开发或者打包时，都会对`config`的`compiler_vendors`字段进行校验⁉️
 
 <div>
   <img src="https://github.com/Mrlyjoutlook/rf/blob/master/doc/check.png"/>
@@ -62,11 +64,11 @@ now, you can run.
 
 - value is `function`.
 - arguments include `config` `paths` `env` `base`.
-  - `config` webpack config
+  - `config` webpack config
   - `paths` file or directory path
   - `env` environment variables
-  - `base` return `config Files` value
-- return `config` ⚠️
+  - `base` return `config Files` value
+- return `config` ⚠️
 
 **config**
 
