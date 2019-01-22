@@ -68,7 +68,7 @@ now, you can run.
   - `paths` file or directory path
   - `env` environment variables
   - `base` return `config Files` value
-- return `config` ⚠️
+- return `config` ⚠️
 
 **config**
 
