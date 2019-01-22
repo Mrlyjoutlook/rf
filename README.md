@@ -1,10 +1,12 @@
 # rf-cli
 
-> rf-cli 是一个创建 react 应用的脚手架，基于 create-react-app 的开发体验上做一层 config 修改
+> Rf-cli is a scaffolding for creating a react application, making a layer of config modifications based on the create-react-app development experience.
 
-## Create an React App
+only support create-react-app@1.x
 
 ## Quick Overview
+
+npm
 
 ```shell
 $ npm install rf-cli -g
@@ -13,9 +15,11 @@ $ cd myapp
 $ npm satrt
 ```
 
-_(you also can use yarn)_
+you also can use yarn
 
 ## User Guide
+
+[rf-scripts](https://github.com/Mrlyjoutlook/rf/tree/master/packages/rf-scripts) provides the ability to rewrite configuration
 
 ## LICENSE
 
