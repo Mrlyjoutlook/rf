@@ -1,4 +1,17 @@
 {
   "root": true,
-  "extends": "react-app"
+  "extends": [
+    "react-app",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "no-restricted-globals": [
+      0
+    ],
+    "no-useless-escape": [
+      0
+    ],
+    "prettier/prettier": "off"
+  }
 }
