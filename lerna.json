@@ -1,8 +1,5 @@
 {
-  "lerna": "2.11.0",
   "npmClient": "yarn",
-  "useWorkspaces": true,
-  "version": "independent",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -18,5 +15,6 @@
     },
     "cacheDir": ".changelog"
   },
-  "packages": ["packages/*"]
+  "packages": ["packages/*"],
+  "version": "0.0.1"
 }
